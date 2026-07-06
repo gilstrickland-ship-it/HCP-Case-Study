@@ -77,8 +77,20 @@ and agree with.**
 hand-written so the model can't override them — deciding *what to trust the model
 with* was mine to make.
 
-**Where AI got it wrong:** it mislabeled one customer dispute. My eval caught it on
-the first run; I fixed it and re-ran clean. That's the point of the eval.
+**Where AI got it wrong — two examples I caught and corrected:**
+
+- *A correctness miss.* It mislabeled one customer dispute. My eval caught it on the
+  first run; I fixed it and re-ran clean. That's the point of the eval.
+- *A legibility miss.* AI built the "Recent wins" dashboard exactly to spec — but the
+  spec exposed an internal scoring number ("weighted credit") as a second dollar column
+  next to the real dollars collected. It was technically faithful and genuinely
+  confusing: a Pro sees `$240 collected` next to `$190 weighted credit` and thinks
+  *"where did my $50 go?"* — it reads like an accounting error. I caught it in design
+  review and reworked it to show one real number (dollars recovered) plus a
+  plain-language tag ("Tough win" / "Handled for you"), and moved the anti-gaming idea
+  into a single headline: *"$2,900 recovered — $2,130 of it from customers who usually
+  don't pay."* The lesson: "matches the spec" isn't the bar; "makes sense to the user"
+  is — and that judgment was mine to make.
 
 ## What's in this repo
 

@@ -11,8 +11,26 @@ import {
 } from "../lib/data";
 import { fmtMoney, weightedRecoveryCredit } from "../lib/weighting";
 import { SegmentChip, StatusBadge } from "../components/ui";
+import type { Segment } from "../lib/types";
 
 export const dynamic = "force-dynamic";
+
+// Plain-language, Pro-facing phrasing for each segment — reads like a story,
+// not a database label. Used in the "Recent wins" table.
+const SITUATION_LABEL: Record<Segment, string> = {
+  forgot: "Just forgot",
+  cant_pay: "Couldn't afford it",
+  wont_pay: "Refused to pay",
+  disputes: "Disputed the bill",
+  unknown: "Unclear",
+};
+
+// "Tough" = customers who don't usually pay. These are the wins the Pro would
+// most likely have written off, so we surface them instead of the internal
+// weighted-credit score.
+function isToughWin(segment: Segment): boolean {
+  return segment === "wont_pay" || segment === "cant_pay";
+}
 
 export default function Dashboard() {
   const settings = getSettings();
@@ -27,8 +45,8 @@ export default function Dashboard() {
   const recentSends = invoices.filter((i) => i.status === "sent");
   const halted = invoices.filter((i) => i.status === "halted");
 
-  const recoveredWeighted = RECOVERIES.reduce((s, r) => s + r.weighted, 0);
   const recoveredDollars = RECOVERIES.reduce((s, r) => s + r.amount, 0);
+  const toughDollars = RECOVERIES.filter((r) => isToughWin(r.segment)).reduce((s, r) => s + r.amount, 0);
   const zeroTouch = RECOVERIES.filter((r) => r.zeroTouch).length;
   const hoursSaved = Math.round((RECOVERIES.length + recentSends.length) * 0.4);
 
@@ -54,9 +72,9 @@ export default function Dashboard() {
       {/* Outcome tiles */}
       <div className="tiles">
         <div className="tile">
-          <div className="tile__label">Weighted recovered</div>
-          <div className="tile__value">{fmtMoney(recoveredWeighted)}</div>
-          <div className="tile__delta tile__delta--good">{fmtMoney(recoveredDollars)} collected · hard cases credited</div>
+          <div className="tile__label">Recovered</div>
+          <div className="tile__value">{fmtMoney(recoveredDollars)}</div>
+          <div className="tile__delta tile__delta--good">{fmtMoney(toughDollars)} from customers who don&apos;t usually pay</div>
         </div>
         <div className="tile">
           <div className="tile__label">DSO vs. your baseline</div>
@@ -129,29 +147,38 @@ export default function Dashboard() {
             </table>
           </div>
 
-          {/* Weighted recoveries */}
+          {/* Recent wins */}
           <div className="hcp-card">
-            <h3 className="hcp-card__title">Recent wins — weighted toward hard collections</h3>
+            <h3 className="hcp-card__title">Recent wins</h3>
+            <p style={{ margin: "2px 0 14px", fontSize: "var(--hcp-fs-md)" }}>
+              <strong>{fmtMoney(recoveredDollars)}</strong> recovered —{" "}
+              <strong>{fmtMoney(toughDollars)}</strong> of it from customers who usually
+              don&apos;t pay.
+            </p>
             <table className="hcp-table">
               <thead>
-                <tr><th>Customer</th><th>Segment</th><th className="num">Collected</th><th className="num">Weighted credit</th><th></th></tr>
+                <tr><th>Customer</th><th>Situation</th><th className="num">Recovered</th><th></th></tr>
               </thead>
               <tbody>
                 {RECOVERIES.map((r) => (
                   <tr key={r.id}>
                     <td>{r.customer}</td>
-                    <td><SegmentChip segment={r.segment} /></td>
+                    <td>{SITUATION_LABEL[r.segment]}</td>
                     <td className="num mono">{fmtMoney(r.amount)}</td>
-                    <td className="num mono">{fmtMoney(r.weighted)}</td>
-                    <td>{r.zeroTouch ? <span className="chip" style={{ background: "var(--hcp-success-bg)", color: "var(--hcp-success)" }}>zero-touch</span> : null}</td>
+                    <td>
+                      {isToughWin(r.segment) ? (
+                        <span className="chip" style={{ background: "var(--hcp-blue-tint)", color: "var(--hcp-blue)" }}>Tough win</span>
+                      ) : r.zeroTouch ? (
+                        <span className="chip" style={{ background: "var(--hcp-success-bg)", color: "var(--hcp-success)" }}>Handled for you</span>
+                      ) : null}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
             <p className="small muted" style={{ marginTop: 10 }}>
-              A $610 recovery from a chronically-late customer is credited more than a
-              larger sum from a sure-payer — the agent can&apos;t game the metric by
-              chasing easy dollars.
+              Tough wins are money you&apos;d likely have written off — your teammate goes
+              after the hard cases, not just the easy ones.
             </p>
           </div>
         </div>
