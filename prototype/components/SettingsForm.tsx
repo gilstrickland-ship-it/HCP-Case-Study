@@ -118,7 +118,7 @@ export default function SettingsForm({
                         <button
                           key={lvl}
                           className={"hcp-btn " + (active ? "hcp-btn--primary" : "hcp-btn--outline")}
-                          style={{ height: 32, padding: "4px 12px" }}
+                          style={{ height: 32, padding: "4px 12px", textTransform: "none" }}
                           onClick={() => patch({ segmentAutonomy: { ...s.segmentAutonomy, [key]: lvl } })}
                           title={LEVEL_LABEL[lvl]}
                         >
