@@ -68,10 +68,15 @@ export default function InvoicesPage() {
                   {r.rel.toFixed(2)}×
                 </td>
                 <td>
-                  {r.inv.segment === "unknown" && r.inv.confidence === 0 ? (
-                    <span className="muted small">not yet read</span>
+                  {r.inv.rationale ? (
+                    <div className="reason-cell">
+                      <SegmentChip segment={r.inv.segment} />
+                      <span className="reason-cell__why muted small">
+                        {r.inv.rationale}
+                      </span>
+                    </div>
                   ) : (
-                    <SegmentChip segment={r.inv.segment} />
+                    <span className="muted small">not yet read</span>
                   )}
                 </td>
                 <td>

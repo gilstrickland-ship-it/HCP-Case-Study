@@ -61,6 +61,7 @@ export interface Invoice {
   status: InvoiceStatus;
   segment: Segment;
   confidence: number; // 0-1 from last classification
+  rationale?: string; // one-line "why unpaid" from last classification (shown in the list)
   thread: Message[];
   // demo scaffolding: a canned inbound reply the panel can trigger, and a hint
   // that lets the deterministic fallback classifier stay realistic offline.
