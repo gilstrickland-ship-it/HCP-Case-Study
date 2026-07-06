@@ -1,0 +1,92 @@
+/* ============================================================================
+   Housecall Pro — Design Tokens
+   ----------------------------------------------------------------------------
+   Extracted from the live logged-in HCP app (pro.housecallpro.com) on
+   2026-07-06 by inspecting computed styles on real elements. Values marked
+   "extracted" are measured from the app; values marked "derived" are chosen to
+   match HCP conventions where the trial account didn't expose a live example
+   (e.g. invoice status colors — only one paid invoice existed to sample).
+
+   The app is built on Material UI (MUI). Font sizes render at 13.125px etc.
+   because the app applies an 87.5% root zoom; we round to clean values here.
+   ============================================================================ */
+
+:root {
+  /* ---- Brand / primary (extracted: rgb(14,111,190), 79 uses) ------------- */
+  --hcp-blue:            #0E6FBE;  /* primary buttons, links, active states   */
+  --hcp-blue-hover:      #0B5C9E;  /* derived: darker for hover               */
+  --hcp-blue-pressed:    #094D85;  /* derived                                 */
+  --hcp-blue-tint:       #DEF0FF;  /* extracted: selected/info background     */
+  --hcp-blue-tint-2:     #BBDEFB;  /* extracted: lighter blue chip/border     */
+  --hcp-blue-faint:      #F1F5FF;  /* extracted: AI-team banner background     */
+
+  /* ---- Accent (extracted) ----------------------------------------------- */
+  --hcp-purple:          #623CC9;  /* Pipeline "premium" gem / upgrade accent */
+  --hcp-amber:           #FFB706;  /* trial/notice banner                     */
+  --hcp-orange:          #EF9159;  /* avatar / warm accent                    */
+
+  /* ---- Text (extracted) -------------------------------------------------- */
+  --hcp-text:            #212121;  /* primary text (545 uses)                 */
+  --hcp-text-secondary:  #616161;  /* secondary text (179 uses)               */
+  --hcp-text-muted:      rgba(0, 0, 0, 0.54); /* captions/placeholder         */
+  --hcp-slate:           #263238;  /* dark slate — logo, strong headings      */
+  --hcp-text-on-blue:    #FFFFFF;
+
+  /* ---- Surfaces (extracted) --------------------------------------------- */
+  --hcp-bg:              #FAFAFA;  /* app/page background                     */
+  --hcp-surface:         #FFFFFF;  /* cards, panels, topbar                   */
+  --hcp-surface-alt:     #F5F5F5;  /* subtle fills, hover rows                */
+  --hcp-surface-hover:   #EEEEEE;
+
+  /* ---- Borders / dividers (extracted) ----------------------------------- */
+  --hcp-border:          #E0E0E0;  /* card + table borders                    */
+  --hcp-border-strong:   rgba(0, 0, 0, 0.12); /* topbar bottom border         */
+
+  /* ---- Semantic status (derived to match HCP/MUI conventions) ----------- */
+  --hcp-success:         #2E7D32;  /* paid                                    */
+  --hcp-success-bg:      #E6F4EA;
+  --hcp-danger:          #C62828;  /* overdue / failed                        */
+  --hcp-danger-bg:       #FDECEA;
+  --hcp-warning:         #B26A00;  /* due soon / pending                      */
+  --hcp-warning-bg:      #FFF4E0;
+  --hcp-neutral:         #616161;  /* draft                                   */
+  --hcp-neutral-bg:      #EEEEEE;
+
+  /* ---- Typography (extracted) ------------------------------------------- */
+  --hcp-font-body:       Roboto, "Helvetica Neue", Arial, sans-serif;      /* 643 uses  */
+  --hcp-font-ui:         "Open Sans", "Segoe UI", Tahoma, sans-serif;      /* buttons   */
+
+  --hcp-fs-xs:           11px;
+  --hcp-fs-sm:           13px;   /* body default (13.125px in app)           */
+  --hcp-fs-md:           15px;   /* inputs                                    */
+  --hcp-fs-lg:           21px;   /* h3 (20.625px)                             */
+  --hcp-fs-xl:           26px;   /* h2 (26.25px)                              */
+
+  --hcp-lh-body:         1.43;   /* 18.77 / 13.125                           */
+  --hcp-fw-regular:      400;
+  --hcp-fw-semibold:     600;    /* buttons, links, emphasis                 */
+
+  /* ---- Radii (extracted) ------------------------------------------------- */
+  --hcp-radius-sm:       4px;    /* most common (75 uses): inputs, chips     */
+  --hcp-radius-md:       8px;    /* cards (21 uses)                          */
+  --hcp-radius-pill:     200px;  /* buttons (32 uses) — HCP's signature      */
+  --hcp-radius-circle:   50%;    /* avatars                                   */
+
+  /* ---- Spacing (MUI 8px base) ------------------------------------------- */
+  --hcp-space-1:         4px;
+  --hcp-space-2:         8px;
+  --hcp-space-3:         12px;
+  --hcp-space-4:         16px;
+  --hcp-space-5:         24px;
+  --hcp-space-6:         32px;
+
+  /* ---- Elevation (derived; app uses flat borders + light MUI shadows) --- */
+  --hcp-shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.06);
+  --hcp-shadow-md:       0 2px 8px rgba(0, 0, 0, 0.08);
+  --hcp-shadow-pop:      0 4px 16px rgba(0, 0, 0, 0.12);
+
+  /* ---- Layout (extracted) ----------------------------------------------- */
+  --hcp-topbar-h:        65px;
+  --hcp-sidebar-w:       232px;  /* measured nav column                      */
+  --hcp-nav-pad-x:       24px;
+}
