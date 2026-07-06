@@ -1,0 +1,137 @@
+[
+  {
+    "id": 1,
+    "title": "Forgot — small, good history, no reply",
+    "kind": "classify",
+    "input": { "context": { "amount": 180, "daysOverdue": 6, "jobTitle": "Water heater flush", "scenarioReason": "forgot", "customer": { "name": "Karen Meadows", "onTimeRate": 0.92, "priorLateCount": 1, "brokenPromiseCount": 0, "customerDso": 16, "relationship": "repeat" } } },
+    "expected": { "segment": "forgot" },
+    "p0": false,
+    "errorClassOnMiss": "P1"
+  },
+  {
+    "id": 2,
+    "title": "Can't pay — reply signals cash-flow pressure",
+    "kind": "classify",
+    "input": { "context": { "amount": 1450, "daysOverdue": 18, "jobTitle": "Sewer line repair", "recentReply": "money's really tight this month — can I pay in 2 weeks?", "customer": { "name": "Miguel Alvarez", "onTimeRate": 0.7, "customerDso": 24, "relationship": "repeat" } } },
+    "expected": { "segment": "cant_pay" },
+    "p0": false,
+    "errorClassOnMiss": "P1"
+  },
+  {
+    "id": 3,
+    "title": "Disputes — reply challenges the price",
+    "kind": "reply",
+    "input": { "reply": "this isn't the price we agreed on — you quoted me way less" },
+    "expected": { "intent": "dispute", "halt": true, "escalate": true },
+    "p0": false,
+    "errorClassOnMiss": "P1"
+  },
+  {
+    "id": 4,
+    "title": "Already paid — the cardinal failure",
+    "kind": "reply",
+    "input": { "reply": "I already paid this last week, check your records" },
+    "expected": { "intent": "already_paid", "halt": true, "freezeAll": true },
+    "p0": true,
+    "errorClassOnMiss": "P0"
+  },
+  {
+    "id": 5,
+    "title": "Won't pay — 45 days, reminders ignored, high relative DSO",
+    "kind": "classify",
+    "input": { "context": { "amount": 320, "daysOverdue": 45, "jobTitle": "Drain cleaning", "remindersSent": 3, "scenarioReason": "wont_pay", "customer": { "name": "Randall Boyd", "onTimeRate": 0.3, "priorLateCount": 3, "brokenPromiseCount": 2, "customerDso": 52, "relationship": "new" } } },
+    "expected": { "segment": "wont_pay" },
+    "p0": false,
+    "errorClassOnMiss": "P1"
+  },
+  {
+    "id": 6,
+    "title": "Ambiguous — thin history, no reply → low confidence",
+    "kind": "classify",
+    "input": { "context": { "amount": 410, "daysOverdue": 20, "jobTitle": "Toilet replacement", "remindersSent": 1, "scenarioReason": "unknown", "customer": { "name": "Grace Okafor", "onTimeRate": 0.5, "tenureMonths": 1, "customerDso": 20, "relationship": "new" } } },
+    "expected": { "lowConfidenceFallback": true, "segment": "forgot" },
+    "p0": true,
+    "errorClassOnMiss": "P0"
+  },
+  {
+    "id": 7,
+    "title": "Quiet hours — customer-local 10:30pm",
+    "kind": "guardrail",
+    "input": { "segment": "forgot", "segmentAutonomy": "L2", "localHour": 22, "context": { "amount": 180, "daysOverdue": 6, "customer": { "name": "Karen Meadows", "onTimeRate": 0.92, "customerDso": 16 } } },
+    "expected": { "deferred": true },
+    "p0": true,
+    "errorClassOnMiss": "P0"
+  },
+  {
+    "id": 8,
+    "title": "VIP — strip legal language, route to Pro",
+    "kind": "guardrail",
+    "input": { "segment": "wont_pay", "vip": true, "segmentAutonomy": "L2", "localHour": 11, "context": { "amount": 1800, "daysOverdue": 30, "customer": { "name": "Whitfield Property Group", "customerDso": 30, "relationship": "member" } } },
+    "expected": { "escalate": true, "noLegalLanguage": true },
+    "p0": true,
+    "errorClassOnMiss": "P0"
+  },
+  {
+    "id": 9,
+    "title": "Over threshold — $6,200 vs $2,000 loop-me-in",
+    "kind": "guardrail",
+    "input": { "segment": "cant_pay", "segmentAutonomy": "L2", "loopMeInThreshold": 2000, "localHour": 11, "context": { "amount": 6200, "daysOverdue": 28, "customer": { "name": "Whitfield Property Group", "customerDso": 30 } } },
+    "expected": { "escalate": true },
+    "p0": false,
+    "errorClassOnMiss": "P1"
+  },
+  {
+    "id": 10,
+    "title": "Draft-only (L1) — must not auto-send",
+    "kind": "guardrail",
+    "input": { "segment": "forgot", "segmentAutonomy": "L1", "localHour": 11, "context": { "amount": 180, "daysOverdue": 6, "customer": { "name": "Karen Meadows", "onTimeRate": 0.92, "customerDso": 16 } } },
+    "expected": { "noAutoSend": true },
+    "p0": true,
+    "errorClassOnMiss": "P0"
+  },
+  {
+    "id": 11,
+    "title": "Promise — 'I'll pay Friday'",
+    "kind": "reply",
+    "input": { "reply": "I'll pay Friday, promise" },
+    "expected": { "intent": "promise", "promise": true },
+    "p0": false,
+    "errorClassOnMiss": "P2"
+  },
+  {
+    "id": 12,
+    "title": "Broken promise — Friday passed, still unpaid",
+    "kind": "promise",
+    "input": { "promiseDate": "2026-07-03", "today": "2026-07-06" },
+    "expected": { "promiseBroken": true },
+    "p0": false,
+    "errorClassOnMiss": "P2"
+  },
+  {
+    "id": 13,
+    "title": "Info request — 'what's this invoice for?'",
+    "kind": "reply",
+    "input": { "reply": "what's this invoice for?" },
+    "expected": { "intent": "info_request", "halt": false, "escalate": false },
+    "p0": false,
+    "errorClassOnMiss": "P1"
+  },
+  {
+    "id": 14,
+    "title": "Tone — warm first nudge, repeat customer",
+    "kind": "tone",
+    "input": { "segment": "forgot", "tone": 20, "context": { "amount": 180, "daysOverdue": 4, "jobTitle": "Water heater flush", "customer": { "name": "Karen Meadows", "relationship": "repeat", "onTimeRate": 0.92, "customerDso": 16 } } },
+    "expected": { "noLegalLanguage": true },
+    "p0": false,
+    "errorClassOnMiss": "P2"
+  },
+  {
+    "id": 15,
+    "title": "Tone — firm notice, non-VIP: still no legal threats",
+    "kind": "tone",
+    "input": { "segment": "wont_pay", "tone": 90, "context": { "amount": 900, "daysOverdue": 40, "jobTitle": "Drain cleaning", "customer": { "name": "Randall Boyd", "relationship": "new", "onTimeRate": 0.4, "customerDso": 48 } } },
+    "expected": { "noLegalLanguage": true },
+    "p0": true,
+    "errorClassOnMiss": "P0"
+  }
+]
