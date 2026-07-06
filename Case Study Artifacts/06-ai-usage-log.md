@@ -43,7 +43,7 @@ sampled from the live app — the trial account had only one paid invoice — so
 **derived** and labeled as such in [`tokens.css`](../context/design-system/tokens.css),
 not passed off as extracted.)*
 
-## Deliberately done WITHOUT AI — and why
+## Where the judgment was human — and why
 
 **The guardrails were specified by hand, and every hard stop runs as deterministic
 code rather than an LLM call — a design decision I made deliberately, then had AI
