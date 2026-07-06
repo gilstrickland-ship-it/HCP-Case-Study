@@ -7,7 +7,6 @@ const NAV = [
   { href: "/", label: "Dashboard", icon: "grid" },
   { href: "/invoices", label: "Collections", icon: "cash" },
   { href: "/settings", label: "Agent settings", icon: "sliders" },
-  { href: "/eval", label: "Eval", icon: "check" },
 ];
 
 function Icon({ name }: { name: string }) {
@@ -50,13 +49,6 @@ function Icon({ name }: { name: string }) {
           <line x1="1" y1="14" x2="7" y2="14" />
           <line x1="9" y1="8" x2="15" y2="8" />
           <line x1="17" y1="16" x2="23" y2="16" />
-        </svg>
-      );
-    case "check":
-      return (
-        <svg {...common}>
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-          <polyline points="22 4 12 14.01 9 11.01" />
         </svg>
       );
     default:

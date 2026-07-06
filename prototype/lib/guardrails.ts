@@ -1,7 +1,8 @@
 // ============================================================================
 // Deterministic guardrails (PRD §7 / constitution I).
 // The LLM never decides whether a message may send — this code does. Every hard
-// stop is a pure function so the eval's P0 = 0 gate is real, not hopeful.
+// stop is a pure function so the P0 = 0 gate is real, not hopeful — and testable
+// case by case against the eval spec (05-eval-spec.md).
 // ============================================================================
 
 import type {

@@ -101,14 +101,6 @@ button { font-family: inherit; }
 .slider__ends { display: flex; justify-content: space-between; font-size: var(--hcp-fs-xs); color: var(--hcp-text-secondary); margin-top: 4px; }
 input[type="range"] { width: 100%; accent-color: var(--hcp-blue); }
 
-/* ---- Eval table ---------------------------------------------------------- */
-.eval-summary { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--hcp-space-3); margin-bottom: var(--hcp-space-5); }
-.gate { padding: var(--hcp-space-3) var(--hcp-space-4); border-radius: var(--hcp-radius-md); font-weight: var(--hcp-fw-semibold); }
-.gate--pass { background: var(--hcp-success-bg); color: var(--hcp-success); }
-.gate--fail { background: var(--hcp-danger-bg); color: var(--hcp-danger); }
-.pill-pass { color: var(--hcp-success); font-weight: var(--hcp-fw-semibold); }
-.pill-fail { color: var(--hcp-danger); font-weight: var(--hcp-fw-semibold); }
-
 /* ---- VIP list ------------------------------------------------------------ */
 .vip-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--hcp-border); }
 .vip-item:last-child { border-bottom: 0; }
