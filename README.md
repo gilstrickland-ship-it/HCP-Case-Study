@@ -3,7 +3,7 @@
 A product case study for **Housecall Pro (HCP)**, from a **PM (product manager)**
 brief on the FinTech team: an AI teammate that helps home-service Pros get paid.
 
-👉 **Try it:** [[`prototype/`](https://hcp-case-study.vercel.app)](prototype/) — a running Next.js app.
+👉 **Try it:** [[`prototype/`](https://hcp-case-study.vercel.app)] — a running Next.js app.
 
 ## How this addresses the brief
 
