@@ -13,8 +13,9 @@ Every hard stop from PRD §7 — already-paid/dispute halt, quiet hours (custome
 9pm–6am), Loop-me-in dollar threshold, autonomy-level gate, VIP legal-language block —
 is enforced by deterministic code that wraps the model, not by asking the LLM to
 behave. The model may only *classify* and *compose*; it may never be the thing that
-decides whether a message is allowed to send. This is what makes the eval's
-**P0 = 0** gate real rather than hopeful.
+decides whether a message is allowed to send. The code-side freeze is what makes the
+**P0 = 0** bar real rather than hopeful; the eval set (`05-eval-spec.md`) documents the
+cases that bar must hold against.
 
 ### II. Never an autopilot
 The Pro is always in the loop and always in control. Autonomy is earned **per
@@ -33,8 +34,9 @@ and hand to the human with a ready-to-send draft. Review, never compose.
 Dunning a customer who already paid or has an open dispute is the one failure that
 breaks trust irreparably. On any "I already paid" / "this charge is wrong" signal:
 halt the thread, suppress the invoice, and **freeze the agent across all of that
-customer's open invoices** until the Pro reviews. The eval P0 rate on this class must
-be exactly zero to ship.
+customer's open invoices** until the Pro reviews. No P0 case in the eval set
+(`05-eval-spec.md`) may survive the guardrail layer — the deterministic code-side
+freeze is the ship gate.
 
 ### V. Honest mock data
 The prototype runs on realistic mock data and is presented as a demonstration of
@@ -49,9 +51,9 @@ what the mock data honestly supports.
   calls for classification and composition so the panel can throw arbitrary customer
   replies at it during live iteration. A deterministic scripted fallback keeps the
   demo alive if the key or rate limit fails.
-- **Reproducible & extensible live.** A teammate must be able to run the 15-case eval
-  (`cases.json`) and extend it next week. The build is driven through Spec Kit so the
-  process, not just the artifact, is legible.
+- **A documented, extensible eval.** The 15-case eval set (`05-eval-spec.md`) is a
+  legible QA artifact a teammate can review and extend next week. The build is driven
+  through Spec Kit so the process, not just the artifact, is legible.
 - **Reads as Housecall Pro.** Styling uses the design tokens extracted from the live
   HCP app; the prototype should feel native (pill buttons, `#0E6FBE` blue, flat
   surfaces).
@@ -63,4 +65,4 @@ be justified in the plan's Complexity Tracking table. The guardrail and
 cardinal-failure principles (I, III, IV) are gates, not preferences: a change that
 weakens them does not ship.
 
-**Version**: 1.0.0 | **Ratified**: 2026-07-06 | **Last Amended**: 2026-07-06
+**Version**: 1.1.0 | **Ratified**: 2026-07-06 | **Last Amended**: 2026-07-06

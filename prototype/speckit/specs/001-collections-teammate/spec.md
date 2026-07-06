@@ -103,17 +103,12 @@ weights, but depends on the core loop existing first.
 review queue and recent sends reflect core-loop actions, and a segment with a strong
 track record offers an L2 leash bump the Pro can confirm.
 
-### User Story 5 - Run the eval (Priority: P2)
+### Deferred - Runnable eval harness
 
-A teammate opens the eval runner, runs the 15 cases from `cases.json`, and gets a
-pass/fail report scored against the error taxonomy with the **P0 = 0** ship gate
-enforced.
-
-**Why this priority**: Makes the eval spec runnable and extensible next week — a named
-deliverable — but is not part of the customer-facing loop.
-
-**Independent Test**: Open `/eval` → Run all → confirm each case is tagged pass/fail by
-error class and the report shows the P0 gate and the ≥90% / 100% / ≤10% bars.
+The 15-case eval is specified in [`05-eval-spec.md`](../../../../Case%20Study%20Artifacts/05-eval-spec.md)
+as a documented QA/test artifact for a teammate or PM to review and extend. An
+in-prototype eval *runner* was intentionally removed (it is a test doc, not a shipped
+feature); the code-side guardrail layer is the live enforcement of the P0 = 0 bar.
 
 ### Edge Cases
 
@@ -153,9 +148,7 @@ error class and the report shows the P0 gate and the ≥90% / 100% / ≤10% bars
 - **FR-009**: System MUST score recoveries with a weighted metric (recovery uplift ×
   dollars at risk, weighted up by amount, days overdue, and relative-DSO risk) and
   surface weighted recoveries, review queue, recent sends, and outcome tiles.
-- **FR-010**: System MUST provide a runnable eval over `cases.json` that scores each
-  case against expected behavior by error class and enforces the P0 = 0 gate.
-- **FR-011**: System MUST use live Claude calls for classification and composition,
+- **FR-010**: System MUST use live Claude calls for classification and composition,
   with a deterministic scripted fallback on failure.
 
 ### Key Entities
@@ -167,20 +160,22 @@ error class and the report shows the P0 gate and the ≥90% / 100% / ≤10% bars
 - **Message / Thread**: outbound drafts + sends, inbound replies, intents, promises,
   halt/freeze state.
 - **Pro Settings**: the four sliders + VIP list + per-segment autonomy + baseline DSO.
-- **Eval Case**: input context/reply, expected action, error class on miss.
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: The 15-case eval reports **P0 = 0** (no false dun, no guardrail breach).
+- **SC-001**: Every P0 case in the eval set (`05-eval-spec.md`) is stopped by the
+  code-side guardrail layer (no false dun, no guardrail breach), verified by demo
+  walkthrough.
 - **SC-002**: Reason classification ≥ 90% on high-confidence cases; low-confidence
   cases abstain to the gentle nudge.
 - **SC-003**: Escalation recall = 100% (every dispute / over-threshold / VIP /
   low-confidence case routes to the Pro with a draft).
 - **SC-004**: A panelist acting as a customer can send an arbitrary free-text reply and
   get a correctly-triaged response within a few seconds during live iteration.
-- **SC-005**: A teammate can run and extend the eval unaided from the prototype.
+- **SC-005**: A teammate can review and extend the documented 15-case eval set
+  (`05-eval-spec.md`) unaided; it is the canonical QA artifact for this prototype.
 
 ## Assumptions
 

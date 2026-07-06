@@ -6,8 +6,9 @@ description: "Task list for AI Collections Teammate prototype"
 
 **Input**: [spec.md](spec.md), [plan.md](plan.md), [data-model.md](data-model.md),
 [contracts/api.md](contracts/api.md)
-**Tests**: The `/eval` runner is the acceptance harness (US5). No separate unit test
-suite required beyond guardrail/weighting sanity checks.
+**Tests**: Acceptance is verified by demo walkthrough + guardrail/weighting sanity
+checks. The 15-case eval set (`05-eval-spec.md`) is a documented QA artifact, not a
+runnable in-app harness.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -31,7 +32,7 @@ suite required beyond guardrail/weighting sanity checks.
 ## Phase 3: US1 — Review & send the right follow-up (P1) 🎯 MVP
 
 - [ ] T010 [US1] `lib/agent.ts` — `processInvoice()`: buildContext → classify → confidence fallback → selectPlay → compose → `guardrails.gate()` → decision.
-- [ ] T011 [US1] `app/api/classify/route.ts` + `app/api/draft/route.ts` (contracts/api.md).
+- [ ] T011 [US1] `app/api/process/route.ts` — full agent loop (classify + compose are the two Claude steps inside it); `app/api/send/route.ts` to record sends (contracts/api.md).
 - [ ] T012 [US1] `app/invoices/[id]/page.tsx` — ContextPanel (5 buckets), ConfidenceMeter, DraftCard (approve/edit/send), auto-send vs. queued state.
 - [ ] T013 [US1] `app/invoices/page.tsx` — AR list ranked by weighted priority, segment + status badges.
 
@@ -55,22 +56,16 @@ suite required beyond guardrail/weighting sanity checks.
 
 - [ ] T020 [US4] `app/page.tsx` — outcome tiles (dollars recovered, DSO vs. baseline, zero-touch, hours saved), review queue, recent sends, weighted recoveries, per-segment track record with an L2 autonomy offer.
 
-## Phase 7: US5 — Eval harness (P2)
-
-- [ ] T021 [US5] `lib/cases.json` — the 15 eval cases from the eval spec (exact IDs 1–15, error classes, P0 flags).
-- [ ] T022 [US5] `app/api/eval/route.ts` — run each case through the real pipeline; score vs. expected; tag error class; compute summary + P0 gate.
-- [ ] T023 [US5] `app/eval/page.tsx` — Run all / per-case; report with P0 gate + ≥90%/100%/≤10% bars; per-case pass/fail by error class.
-
 ## Phase 8: Polish & Deploy
 
 - [ ] T024 [P] Empty/error/failure/deferred (quiet-hours) states; design pass vs. HCP reference screenshots.
 - [ ] T025 `quickstart.md` (run + demo script); README for `prototype/`.
-- [ ] T026 Local verification: demo path + guardrail checks + run 15 cases (expect P0 = 0); fallback check with key unset.
+- [ ] T026 Local verification: demo path + guardrail checks (walk the documented eval cases through the UI, expect no P0 breach); fallback check with key unset.
 - [ ] T027 Deploy to Vercel (root `prototype/`), set `ANTHROPIC_API_KEY`; verify deployed URL end-to-end.
 - [ ] T028 Update `04-ai-iteration-log.md` and `06-ai-usage-log.md` with this build session.
 
 ## Dependencies
 
-- Phase 1 → Phase 2 → (Phase 3 = MVP) → Phase 4 → Phases 5/6/7 (parallelizable) → Phase 8.
+- Phase 1 → Phase 2 → (Phase 3 = MVP) → Phase 4 → Phases 5/6 (parallelizable) → Phase 8.
 - US1 (P1) is the standalone MVP; US2 (P1) completes the rubric's trust/failure axis.
-- Guardrails (T007) block T010/T016/T019/T022 — the gate is used everywhere.
+- Guardrails (T007) block T010/T016/T019 — the gate is used everywhere.
