@@ -19,8 +19,8 @@ app runs on realistic mock data and ships a runnable 15-case eval.
 **Primary Dependencies**: Next.js 15 (App Router), `@anthropic-ai/sdk`
 **Storage**: In-memory mock data module (`lib/data.ts`); ephemeral per-session
 mutation of thread/queue state. No database.
-**Testing**: The `/eval` runner over `lib/cases.json` (the eval spec's 15 cases) is
-the acceptance harness; light unit checks on guardrails/weighting as needed.
+**Testing**: Demo-walkthrough acceptance + light unit checks on guardrails/weighting.
+The 15-case eval set (`05-eval-spec.md`) is a documented QA artifact, not an in-app runner.
 **Target Platform**: Vercel (Node serverless runtime for `app/api/*`).
 **Project Type**: Web application (single Next.js app).
 **Performance Goals**: Classification/draft round-trips fast enough for live demo
@@ -68,21 +68,19 @@ prototype/
 │   ├── invoices/page.tsx         # AR list (weighted priority)
 │   ├── invoices/[id]/page.tsx    # US1+US2 core loop + reply thread
 │   ├── settings/page.tsx         # US3 sliders + VIP + autonomy
-│   ├── eval/page.tsx             # US5 eval runner
 │   └── api/
-│       ├── classify/route.ts     # context -> {reason, confidence}
-│       ├── draft/route.ts        # context+segment+tone -> message
-│       ├── reply/route.ts        # thread+reply -> {intent, promise?, failureFlags, draft}
-│       └── eval/route.ts         # run one/all cases -> scored results
+│       ├── process/route.ts      # invoice -> full agent loop {decision, draft, ...}
+│       ├── reply/route.ts        # thread reply -> {triage, decision, frozenInvoices}
+│       ├── send/route.ts         # record an approved/auto send onto the thread
+│       └── settings/route.ts     # GET/POST Pro settings (sliders, VIP, autonomy)
 ├── lib/
 │   ├── types.ts
 │   ├── data.ts                   # mock customers, invoices, settings, DSO baseline
-│   ├── cases.json                # the 15 eval cases
 │   ├── guardrails.ts             # deterministic hard stops (PRD §7 / P0)
 │   ├── weighting.ts              # weighted-recovery score
 │   ├── anthropic.ts              # Claude client + graceful fallback
 │   └── agent.ts                  # buildContext -> classify -> gate -> selectPlay -> compose
-├── components/                   # Shell, StatCard, InvoiceRow, ContextPanel, DraftCard, ReplyThread, Slider, VipList, Badge, ConfidenceMeter
+├── components/                   # Shell, InvoiceDetail, SettingsForm, ui (Badge/StatCard/Slider/etc.)
 ├── styles/                       # tokens.css + hcp.css (copied from context/design-system) + app.css
 ├── public/
 ├── .env.example                  # ANTHROPIC_API_KEY, AI_MODEL_*
@@ -106,9 +104,6 @@ Claude calls server-side so the key is never shipped to the browser.
    scenario-keyed response so a live demo never dead-ends.
 4. **State.** Mock data is module-level; the invoice detail and dashboard mutate a
    shared in-memory store within the server session — enough for a demo, no DB.
-5. **Eval.** `/api/eval` runs each `cases.json` input through the same
-   classify/gate/compose pipeline the UI uses, then scores against the case's expected
-   action and tags an error class — so the eval tests the real code path, not a mock.
 
 ## Complexity Tracking
 

@@ -4,29 +4,31 @@ All routes are Next.js Node-runtime handlers under `prototype/app/api/`. All Cla
 calls happen here (server-side); the browser never sees the key. Each route degrades
 to a deterministic fallback when the API key is missing or a call fails.
 
-## POST /api/classify
-Classify why an invoice is unpaid.
-- **Request**: `{ context: CustomerInvoiceContext }`
-- **Response**: `{ reason: "forgot"|"cant_pay"|"disputes"|"wont_pay", confidence: number, rationale: string, source: "llm"|"fallback" }`
-- **Guarantee**: caller (`agent.ts`) applies the confidence-fallback rule; this route
-  only returns the raw read.
-
-## POST /api/draft
-Compose a follow-up message.
-- **Request**: `{ context, segment, tone, persistence, vip: boolean }`
-- **Response**: `{ body: string, source: "llm"|"fallback" }`
-- **Note**: VIP legal-language stripping is enforced downstream in `guardrails.ts`, not
-  trusted to the model.
+## POST /api/process
+Run the full agent loop on one invoice (classify → confidence fallback → select play →
+compose → gate). The two Claude steps (classify, compose) live inside this loop.
+- **Request**: `{ invoiceId: string, localHour?: number }`
+- **Response**: the `processInvoice` result — `{ decision, reason, confidence, draft,
+  contextBuckets, guardrailTrace, source }`
+- **Guarantee**: `guardrails.gate()` runs server-side; the LLM never decides
+  sendability. VIP legal-language stripping is enforced in `guardrails.ts`, not trusted
+  to the model.
 
 ## POST /api/reply
-Triage an inbound customer reply.
-- **Request**: `{ thread: Message[], reply: string, context }`
-- **Response**: `{ intent: "promise"|"dispute"|"already_paid"|"info_request"|"other", promiseDate: string|null, failureFlags: { alreadyPaid: boolean, disputed: boolean }, draft: string, source: "llm"|"fallback" }`
-- **Guarantee**: on `alreadyPaid` or `disputed`, the agent halts + freezes all of the
-  customer's invoices (code-side, per constitution IV).
+Triage an inbound customer reply; on already-paid/dispute, halt + freeze ALL of the
+customer's open invoices (constitution IV), enforced in code.
+- **Request**: `{ invoiceId: string, reply: string }`
+- **Response**: `{ triage: { intent, promiseDate, failureFlags, draft, source },
+  decision: "halt"|"queue_for_review", frozenInvoices: string[], customerName: string }`
+- **Guarantee**: on `failureFlags.alreadyPaid` or `failureFlags.disputed`, the agent
+  halts the thread and freezes every open invoice for that customer.
 
-## POST /api/eval
-Run the eval.
-- **Request**: `{ caseId?: number }` (omit to run all 15)
-- **Response**: `{ results: Array<{ id, title, pass: boolean, errorClass: string|null, expected, got }>, summary: { p0Rate: number, classifyAccuracy: number, escalationRecall: number, tonemisses: number, gatePassed: boolean } }`
-- **Gate**: `summary.gatePassed = (p0Rate === 0)`.
+## POST /api/send
+Record an approved/auto send onto the invoice thread (feeds the dashboard).
+- **Request**: `{ invoiceId: string, body: string }`
+- **Response**: `{ ok: true, status: InvoiceStatus }`
+
+## GET / POST /api/settings
+Read or patch Pro settings (sliders, VIP list, per-segment autonomy, baseline DSO).
+- **GET Response**: `ProSettings`
+- **POST Request**: `Partial<ProSettings>` → **Response**: updated `ProSettings`

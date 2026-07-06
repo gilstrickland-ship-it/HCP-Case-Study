@@ -9,7 +9,7 @@ cp .env.example .env.local   # optional: add ANTHROPIC_API_KEY for live Claude
 npm run dev                  # http://localhost:3000
 ```
 
-No key? The app runs on deterministic fallbacks — every screen and the eval still work.
+No key? The app runs on deterministic fallbacks — every screen still works.
 
 ## Demo script (the 15-min walkthrough)
 
@@ -26,12 +26,15 @@ No key? The app runs on deterministic fallbacks — every screen and the eval st
    reply; the agent triages intent, records promises, and routes disputes/already-paid
    to the Pro. (Live Claude makes this open-ended.)
 6. **Controls** `/settings` — move Tone/Leash; show it's dials, not menus.
-7. **Eval** `/eval` — run all 15; show **P0 = 0** ship gate, classification ≥ 90%,
-   escalation recall = 100%. Point out `lib/cases.json` is where a teammate extends it.
+7. **Quality bar** — point to the 15-case eval set in `05-eval-spec.md`: the **P0 = 0**
+   ship gate, classification ≥ 90%, escalation recall = 100%. It's the documented QA
+   artifact a teammate reviews and extends — the guardrail layer is what enforces it in
+   code.
 
 ## Verify the guardrails hold (by code)
 
 - `INV-2007` (Whitfield, $6,200, VIP) → escalates: over threshold **and** VIP.
 - Draft-only segments never auto-send; only `forgot` (L2) auto-sends, and only
   outside the customer's quiet hours.
-- Run `/eval` — the gate is red if any P0 case regresses.
+- Walk the `05-eval-spec.md` cases through the UI — no P0 case should survive the
+  guardrail layer.

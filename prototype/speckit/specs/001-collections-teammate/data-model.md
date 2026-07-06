@@ -58,16 +58,8 @@ In-memory mock data (`prototype/lib/data.ts`). No database. Types in `lib/types.
 | baselineDso | number | the Pro's own average |
 | vipIds | string[] | |
 
-### EvalCase (`lib/cases.json`)
-| Field | Type | Notes |
-|---|---|---|
-| id | number | 1–15 |
-| title | string | |
-| kind | `classify` \| `guardrail` \| `reply` \| `tone` | |
-| input | object | context and/or customer reply |
-| expected | object | `{ action, segment?, escalate?, halt?, freezeAll?, deferred? }` |
-| p0 | boolean | is this a P0 cardinal/guardrail case |
-| errorClassOnMiss | `P0` \| `P1` \| `P2` \| `P3` | |
+> The 15-case eval set lives in [`05-eval-spec.md`](../../../../Case%20Study%20Artifacts/05-eval-spec.md)
+> as a documented QA artifact; it is not modeled as an in-prototype entity.
 
 ## Derived
 
