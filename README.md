@@ -29,9 +29,9 @@ segment, it earns more autonomy — always visible, always reversible with one s
 
 **Measurement.** The outcome metric that matters is **weighted recovery** — hard
 collections credited more than easy dollars the Pro would've gotten anyway — so the
-metric can't be gamed. Before shipping, the quality bar is a built-in eval of 15 real
-cases run through the actual pipeline: **zero critical failures (a wrong send that
-breaks trust), or it doesn't ship.**
+metric can't be gamed. The quality bar is a **15-case eval spec** — a documented test
+set covering every failure mode, ready for a teammate or PM to run against the agent:
+**zero critical failures (a wrong send that breaks trust), or it doesn't ship.**
 
 ---
 
@@ -48,8 +48,6 @@ whenever judgment is needed. **A teammate, not an autopilot.**
 - **Drafts** the follow-up; the Pro approves, edits, or sends.
 - **Protects trust:** if a customer says *"I already paid,"* it stops and freezes all
   their invoices until the Pro looks — no dunning someone who already paid.
-- **Proves quality:** a built-in eval runs 15 real cases through the actual pipeline.
-  Zero critical failures, or it doesn't ship.
 
 ## Key decisions I made
 

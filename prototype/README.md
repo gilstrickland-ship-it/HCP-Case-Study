@@ -22,7 +22,7 @@ npm run dev                  # http://localhost:3000
 **Real Claude vs. offline fallback.** With `ANTHROPIC_API_KEY` set, classification,
 composition, and reply triage use live Claude calls (Haiku for classification,
 Sonnet for writing). **Without a key, the app runs on deterministic scripted
-fallbacks** so the demo — and the eval — never dead-ends.
+fallbacks** so the demo never dead-ends.
 
 ## The demo path (≈2 min)
 
@@ -36,15 +36,15 @@ fallbacks** so the demo — and the eval — never dead-ends.
    failure handled: the thread halts and **every open invoice for that customer
    freezes** until the Pro reviews, with an apology draft ready.
 5. **Agent settings** (`/settings`) — the 4 dials + VIP list + per-segment leash.
-6. **Eval** (`/eval`) — run the 15-case ship gate. **P0 = 0** or it doesn't ship.
 
 ## Architecture
 
 Guardrails live in **code**, not the prompt. The model only *classifies* and
 *composes*; a deterministic gate ([`lib/guardrails.ts`](lib/guardrails.ts)) decides
 whether anything may send — quiet hours (customer-local), Loop-me-in threshold,
-autonomy level, VIP legal-language block, and the already-paid/dispute halt. That is
-what makes the eval's P0 = 0 gate real.
+autonomy level, VIP legal-language block, and the already-paid/dispute halt. The
+[eval spec](../Case%20Study%20Artifacts/05-eval-spec.md) documents, case by case, what
+a teammate or PM should test to verify that gate holds.
 
 | Path | What |
 |---|---|
@@ -53,7 +53,6 @@ what makes the eval's P0 = 0 gate real.
 | `lib/anthropic.ts` | Claude calls + scripted fallback |
 | `lib/weighting.ts` | weighted-recovery scoring |
 | `lib/data.ts` | mock book of business |
-| `lib/cases.json` | the 15 eval cases (extend here) |
 | `app/api/*` | server-side routes (the key never reaches the browser) |
 
 ## Deploy (Vercel)
