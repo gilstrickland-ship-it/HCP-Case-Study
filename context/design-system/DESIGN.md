@@ -12,13 +12,14 @@ styles on real elements, then hand-authored into reusable CSS.
 | [`tokens.css`](tokens.css) | CSS custom properties — colors, type, spacing, radii, layout. Import first. |
 | [`hcp.css`](hcp.css) | Component classes (buttons, cards, shell, table, badges, banners). |
 | [`preview.html`](preview.html) | Live preview: an app-shell replica + a token/component reference. Open in a browser. |
-| [`../../02-research/design-reference/`](../../02-research/design-reference/) | Screenshots of the real app (`hcp-home.png`, `hcp-invoices.png`) used as the fidelity target. |
+| [`reference/`](reference/) | Screenshots of the real app (`hcp-home.png`, `hcp-invoices.png`) used as the fidelity target. |
 
 ## How to use it in the prototype
 
 ```html
-<link rel="stylesheet" href="design-system/tokens.css">
-<link rel="stylesheet" href="design-system/hcp.css">
+<!-- adjust the relative path to wherever the prototype lives, e.g. ../context/design-system/ -->
+<link rel="stylesheet" href="../context/design-system/tokens.css">
+<link rel="stylesheet" href="../context/design-system/hcp.css">
 <!-- Roboto + Open Sans from Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -95,7 +96,7 @@ Topbar `65px` · sidebar `232px` · nav rows `40px` tall, `24px` horizontal padd
 
 - Colors, fonts, radii, and layout metrics are **measured from the live app**, not
   guessed. The extraction script is preserved in the session scratchpad; the raw
-  screenshots are in `02-research/design-reference/`.
+  screenshots are in [`reference/`](reference/).
 - Status-badge colors and hover/pressed button shades are **derived** (labeled as
   such) because the trial account didn't expose live examples.
 - This is a **look-and-feel replica for a prototype**, hand-authored from observed

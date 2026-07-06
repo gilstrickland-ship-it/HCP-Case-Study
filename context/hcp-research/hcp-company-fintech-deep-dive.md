@@ -37,7 +37,7 @@ ACH = Automated Clearing House (direct bank transfer). AR = accounts receivable
 
 > Note: Crunchbase and G2 were pulled but returned no usable claims (blocked to
 > automated fetch), so headcount/revenue estimates from earlier research
-> ([ar-stats.md](ar-stats.md), [competitor-notes.md](competitor-notes.md)) remain
+> ([ar-stats.md](../../02-research/ar-stats.md), [competitor-notes.md](../../02-research/competitor-notes.md)) remain
 > the softer, secondary-source figures.
 
 ## 2. Payments & FinTech product stack
@@ -111,13 +111,13 @@ directional, not authoritative): [Capterra HCP vs ServiceTitan](https://www.capt
 [ServiceTitan comparison](https://www.servicetitan.com/comparison/servicetitan-vs-housecall-pro),
 [Workiz blog](https://www.workiz.com/blog/housecall-pro-competitors/),
 [FieldPulse](https://www.fieldpulse.com/resources/blog/servicetitan-vs-housecall-pro).
-Detailed feature-by-feature current state is in [competitor-notes.md](competitor-notes.md).
+Detailed feature-by-feature current state is in [competitor-notes.md](../../02-research/competitor-notes.md).
 
 ## 6. Customer pain points
 
 Sources pulled: [Trustpilot](https://www.trustpilot.com/review/housecallpro.com),
 [BBB complaints](https://www.bbb.org/us/ca/san-diego/profile/marketing-software/housecall-pro-1126-1000067843/complaints).
-Specific invoicing/payment quotes are captured in [pro-quotes.md](pro-quotes.md).
+Specific invoicing/payment quotes are captured in [pro-quotes.md](../../02-research/pro-quotes.md).
 
 ## Method notes / limitations
 
