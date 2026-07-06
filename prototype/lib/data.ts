@@ -305,6 +305,7 @@ const settings: ProSettings = {
   loopMeInThreshold: 2000,
   baselineDso: 18,
   vipIds: ["c_whitfield"],
+  excludedVipIds: [],
 };
 
 // ---- Demo seed: recent wins + per-segment track record --------------------
@@ -374,5 +375,7 @@ export function updateSettings(patch: Partial<ProSettings>): ProSettings {
 }
 export function isVip(customerId: string): boolean {
   const c = getCustomer(customerId);
-  return !!c && (c.isVip || store.settings.vipIds.includes(customerId));
+  if (!c) return false;
+  if (store.settings.vipIds.includes(customerId)) return true;
+  return c.isVip && !store.settings.excludedVipIds.includes(customerId);
 }

@@ -86,6 +86,7 @@ function buildContext(c: EvalCase): AgentContext {
       loopMeInThreshold: c.input.loopMeInThreshold ?? 2000,
       baselineDso: DEFAULT_BASELINE_DSO,
       vipIds: [],
+      excludedVipIds: [],
     },
     nowLocalHour: c.input.localHour ?? 11,
     recentReply,
