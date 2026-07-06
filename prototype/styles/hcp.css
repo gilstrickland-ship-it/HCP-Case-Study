@@ -1,0 +1,177 @@
+/* ============================================================================
+   Housecall Pro — Component styles
+   ----------------------------------------------------------------------------
+   Reusable classes that reproduce the HCP app look from the extracted tokens.
+   Import tokens.css first. These are hand-authored to match the live app, not
+   a copy of HCP's proprietary CSS.
+
+   Distinctive HCP quirks reproduced here:
+   - Buttons are FULLY ROUNDED PILLS (radius 200px) and lowercase text.
+   - Primary blue is #0E6FBE everywhere (buttons, links, active nav).
+   - Flat surfaces: white cards on #FAFAFA, thin #E0E0E0 borders, minimal shadow.
+   ============================================================================ */
+
+/* ---- Base ---------------------------------------------------------------- */
+.hcp {
+  font-family: var(--hcp-font-body);
+  font-size: var(--hcp-fs-sm);
+  line-height: var(--hcp-lh-body);
+  color: var(--hcp-text);
+  background: var(--hcp-bg);
+  -webkit-font-smoothing: antialiased;
+}
+.hcp h1, .hcp h2, .hcp h3 { font-weight: var(--hcp-fw-regular); color: var(--hcp-text); margin: 0; }
+.hcp h2 { font-size: var(--hcp-fs-xl); }
+.hcp h3 { font-size: var(--hcp-fs-lg); }
+.hcp a { color: var(--hcp-blue); text-decoration: none; font-weight: var(--hcp-fw-semibold); }
+.hcp a:hover { text-decoration: underline; }
+
+/* ---- Buttons ------------------------------------------------------------- */
+.hcp-btn {
+  font-family: var(--hcp-font-ui);
+  font-size: var(--hcp-fs-sm);
+  font-weight: var(--hcp-fw-semibold);
+  text-transform: lowercase;          /* HCP signature */
+  height: 40px;
+  padding: 8px 16px;
+  border-radius: var(--hcp-radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease;
+}
+.hcp-btn--primary {
+  background: var(--hcp-blue);
+  color: var(--hcp-text-on-blue);
+  border-color: var(--hcp-blue);
+}
+.hcp-btn--primary:hover { background: var(--hcp-blue-hover); border-color: var(--hcp-blue-hover); }
+.hcp-btn--primary:active { background: var(--hcp-blue-pressed); }
+.hcp-btn--outline {
+  background: transparent;
+  color: var(--hcp-blue);
+  border-color: var(--hcp-blue);
+}
+.hcp-btn--outline:hover { background: var(--hcp-blue-faint); }
+.hcp-btn--ghost {
+  background: transparent;
+  color: var(--hcp-blue);
+  border-color: transparent;
+}
+.hcp-btn--ghost:hover { background: var(--hcp-surface-alt); }
+.hcp-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ---- Cards --------------------------------------------------------------- */
+.hcp-card {
+  background: var(--hcp-surface);
+  border: 1px solid var(--hcp-border);
+  border-radius: var(--hcp-radius-md);
+  padding: var(--hcp-space-5);
+}
+.hcp-card--flush { padding: 0; overflow: hidden; }
+.hcp-card__title { font-size: var(--hcp-fs-lg); margin-bottom: var(--hcp-space-3); }
+
+/* ---- App shell (sidebar + topbar + content) ----------------------------- */
+.hcp-shell { display: grid; grid-template-columns: var(--hcp-sidebar-w) 1fr; min-height: 100vh; }
+.hcp-sidebar {
+  background: var(--hcp-surface);
+  border-right: 1px solid var(--hcp-border);
+  padding: var(--hcp-space-4) 0;
+}
+.hcp-sidebar__brand {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 var(--hcp-nav-pad-x) var(--hcp-space-4);
+  font-weight: 700; color: var(--hcp-slate); font-size: var(--hcp-fs-lg);
+}
+.hcp-sidebar__create { margin: 0 var(--hcp-nav-pad-x) var(--hcp-space-4); }
+.hcp-sidebar__create .hcp-btn { width: 100%; justify-content: center; }
+.hcp-nav { list-style: none; margin: 0; padding: 0; }
+.hcp-nav__item {
+  display: flex; align-items: center; gap: 12px;
+  height: 40px; padding: 0 var(--hcp-nav-pad-x);
+  font-size: var(--hcp-fs-sm); color: var(--hcp-text); cursor: pointer;
+}
+.hcp-nav__item:hover { background: var(--hcp-surface-alt); }
+.hcp-nav__item--active {
+  background: var(--hcp-blue-tint);
+  color: var(--hcp-blue);
+  font-weight: var(--hcp-fw-semibold);
+  box-shadow: inset 3px 0 0 var(--hcp-blue);
+}
+.hcp-nav__icon { width: 18px; height: 18px; opacity: .8; }
+
+.hcp-topbar {
+  height: var(--hcp-topbar-h);
+  background: var(--hcp-surface);
+  border-bottom: 1px solid var(--hcp-border-strong);
+  display: flex; align-items: center; gap: var(--hcp-space-4);
+  padding: 0 var(--hcp-space-5);
+}
+.hcp-content { padding: var(--hcp-space-5); background: var(--hcp-bg); }
+
+/* ---- Search input (topbar) ---------------------------------------------- */
+.hcp-search {
+  flex: 1;
+  display: flex; align-items: center; gap: 8px;
+  height: 40px; padding: 0 var(--hcp-space-4);
+  background: var(--hcp-surface-alt);
+  border-radius: var(--hcp-radius-pill);
+  color: var(--hcp-text-muted);
+}
+.hcp-search input {
+  border: 0; outline: 0; background: transparent;
+  font-size: var(--hcp-fs-md); color: var(--hcp-text); width: 100%;
+}
+
+/* ---- Status badges ------------------------------------------------------- */
+.hcp-badge {
+  display: inline-flex; align-items: center;
+  font-family: var(--hcp-font-ui);
+  font-size: var(--hcp-fs-xs); font-weight: var(--hcp-fw-semibold);
+  text-transform: uppercase; letter-spacing: .04em;
+  padding: 3px 10px; border-radius: var(--hcp-radius-pill);
+}
+.hcp-badge--paid    { color: var(--hcp-success); background: var(--hcp-success-bg); }
+.hcp-badge--overdue { color: var(--hcp-danger);  background: var(--hcp-danger-bg);  }
+.hcp-badge--due     { color: var(--hcp-warning); background: var(--hcp-warning-bg); }
+.hcp-badge--sent    { color: var(--hcp-blue);    background: var(--hcp-blue-tint);  }
+.hcp-badge--draft   { color: var(--hcp-neutral); background: var(--hcp-neutral-bg); }
+
+/* ---- Tables (invoice list style) ---------------------------------------- */
+.hcp-table { width: 100%; border-collapse: collapse; background: var(--hcp-surface); font-size: var(--hcp-fs-sm); }
+.hcp-table th {
+  text-align: left; text-transform: uppercase;
+  font-size: var(--hcp-fs-xs); font-weight: var(--hcp-fw-semibold);
+  color: var(--hcp-text-secondary); letter-spacing: .04em;
+  padding: 10px var(--hcp-space-4); border-bottom: 1px solid var(--hcp-border);
+  background: var(--hcp-surface);
+}
+.hcp-table td { padding: 14px var(--hcp-space-4); border-bottom: 1px solid var(--hcp-border); color: var(--hcp-text); }
+.hcp-table tbody tr:hover { background: var(--hcp-surface-alt); }
+.hcp-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---- Avatar -------------------------------------------------------------- */
+.hcp-avatar {
+  width: 40px; height: 40px; border-radius: var(--hcp-radius-circle);
+  background: var(--hcp-orange); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: var(--hcp-fw-semibold); font-size: var(--hcp-fs-sm);
+}
+
+/* ---- AI Team banner (the blue callout on Home) --------------------------- */
+.hcp-ai-banner {
+  background: var(--hcp-blue-faint);
+  border: 1px solid var(--hcp-blue-tint-2);
+  border-radius: var(--hcp-radius-md);
+  padding: var(--hcp-space-4);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--hcp-space-4);
+}
+
+/* ---- Trial / notice banner ---------------------------------------------- */
+.hcp-notice {
+  background: var(--hcp-amber); color: var(--hcp-slate);
+  display: flex; align-items: center; justify-content: center; gap: var(--hcp-space-3);
+  height: 56px; font-size: var(--hcp-fs-sm); font-weight: var(--hcp-fw-semibold);
+}

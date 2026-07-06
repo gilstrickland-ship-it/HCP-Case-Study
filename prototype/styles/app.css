@@ -1,0 +1,117 @@
+/* ============================================================================
+   Prototype-specific styles — layered on top of tokens.css + hcp.css.
+   Only additions the design system doesn't already cover.
+   ============================================================================ */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+a { cursor: pointer; }
+button { font-family: inherit; }
+.hcp-btn { white-space: nowrap; }
+
+/* ---- Layout helpers ------------------------------------------------------ */
+.row { display: flex; align-items: center; gap: var(--hcp-space-3); }
+.row--between { justify-content: space-between; }
+.col { display: flex; flex-direction: column; gap: var(--hcp-space-3); }
+.grow { flex: 1; }
+.muted { color: var(--hcp-text-secondary); }
+.small { font-size: var(--hcp-fs-xs); }
+.mono { font-variant-numeric: tabular-nums; }
+.stack > * + * { margin-top: var(--hcp-space-4); }
+.page-head { margin-bottom: var(--hcp-space-5); }
+.page-head h2 { margin-bottom: 4px; }
+
+/* ---- Nav link reset (Next Link) ------------------------------------------ */
+.hcp-nav__item { text-decoration: none; color: inherit; }
+.hcp-nav__item:hover { text-decoration: none; }
+.hcp-sidebar__brand { text-decoration: none; }
+
+/* Anchors styled as buttons: beat the `.hcp a` blue-link rule (specificity). */
+.hcp a.hcp-btn { text-decoration: none; }
+.hcp a.hcp-btn:hover { text-decoration: none; }
+.hcp a.hcp-btn--primary { color: var(--hcp-text-on-blue); }
+.hcp a.hcp-btn--outline,
+.hcp a.hcp-btn--ghost { color: var(--hcp-blue); }
+
+/* ---- Stat tiles ---------------------------------------------------------- */
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--hcp-space-4); }
+.tile { background: var(--hcp-surface); border: 1px solid var(--hcp-border); border-radius: var(--hcp-radius-md); padding: var(--hcp-space-4); }
+.tile__label { font-size: var(--hcp-fs-xs); text-transform: uppercase; letter-spacing: .04em; color: var(--hcp-text-secondary); }
+.tile__value { font-size: var(--hcp-fs-xl); margin-top: 6px; }
+.tile__delta { font-size: var(--hcp-fs-xs); margin-top: 4px; }
+.tile__delta--good { color: var(--hcp-success); }
+.tile__delta--bad { color: var(--hcp-danger); }
+
+@media (max-width: 1000px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---- Two-column detail layout -------------------------------------------- */
+.detail-grid { display: grid; grid-template-columns: 1fr 340px; gap: var(--hcp-space-5); align-items: start; }
+@media (max-width: 1100px) { .detail-grid { grid-template-columns: 1fr; } }
+
+/* ---- Context panel (5 buckets) ------------------------------------------- */
+.ctx__bucket { padding: var(--hcp-space-3) 0; border-bottom: 1px solid var(--hcp-border); }
+.ctx__bucket:last-child { border-bottom: 0; }
+.ctx__bucket-label { font-size: var(--hcp-fs-xs); text-transform: uppercase; letter-spacing: .04em; color: var(--hcp-text-secondary); margin-bottom: 6px; }
+.ctx__row { display: flex; justify-content: space-between; gap: var(--hcp-space-3); padding: 2px 0; }
+.ctx__row .k { color: var(--hcp-text-secondary); }
+
+/* ---- Confidence meter ---------------------------------------------------- */
+.conf { display: flex; align-items: center; gap: var(--hcp-space-3); }
+.conf__bar { flex: 1; height: 8px; border-radius: 200px; background: var(--hcp-surface-hover); overflow: hidden; }
+.conf__fill { height: 100%; border-radius: 200px; }
+.conf__fill--high { background: var(--hcp-success); }
+.conf__fill--med { background: var(--hcp-warning); }
+.conf__fill--low { background: var(--hcp-danger); }
+
+/* ---- Segment chip -------------------------------------------------------- */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: var(--hcp-fs-xs); font-weight: var(--hcp-fw-semibold); padding: 3px 10px; border-radius: 200px; background: var(--hcp-surface-alt); color: var(--hcp-text-secondary); }
+.chip--forgot { background: var(--hcp-blue-tint); color: var(--hcp-blue); }
+.chip--cant_pay { background: var(--hcp-warning-bg); color: var(--hcp-warning); }
+.chip--disputes { background: var(--hcp-danger-bg); color: var(--hcp-danger); }
+.chip--wont_pay { background: #EDE7F6; color: var(--hcp-purple); }
+.chip--unknown { background: var(--hcp-neutral-bg); color: var(--hcp-neutral); }
+
+/* ---- Message thread ------------------------------------------------------ */
+.thread { display: flex; flex-direction: column; gap: var(--hcp-space-3); }
+.msg { max-width: 82%; padding: 10px 14px; border-radius: 14px; font-size: var(--hcp-fs-sm); line-height: 1.45; white-space: pre-wrap; }
+.msg--out { align-self: flex-end; background: var(--hcp-blue); color: #fff; border-bottom-right-radius: 4px; }
+.msg--in { align-self: flex-start; background: var(--hcp-surface-alt); color: var(--hcp-text); border-bottom-left-radius: 4px; }
+.msg--draft { align-self: flex-end; background: var(--hcp-blue-faint); color: var(--hcp-text); border: 1px dashed var(--hcp-blue-tint-2); border-bottom-right-radius: 4px; }
+.msg__meta { font-size: 10px; opacity: .8; margin-top: 4px; }
+
+/* ---- Draft editor -------------------------------------------------------- */
+.draft-edit { width: 100%; min-height: 96px; resize: vertical; border: 1px solid var(--hcp-border); border-radius: var(--hcp-radius-sm); padding: 10px 12px; font-family: var(--hcp-font-body); font-size: var(--hcp-fs-sm); line-height: 1.45; }
+.reply-input { width: 100%; border: 1px solid var(--hcp-border); border-radius: 200px; padding: 10px 16px; font-family: var(--hcp-font-body); font-size: var(--hcp-fs-md); }
+
+/* ---- Alert banners ------------------------------------------------------- */
+.alert { border-radius: var(--hcp-radius-md); padding: var(--hcp-space-4); font-size: var(--hcp-fs-sm); }
+.alert--danger { background: var(--hcp-danger-bg); border: 1px solid #F5C6C0; color: #8A1C1C; }
+.alert--warning { background: var(--hcp-warning-bg); border: 1px solid #F0D9A8; color: #7A4A00; }
+.alert--info { background: var(--hcp-blue-faint); border: 1px solid var(--hcp-blue-tint-2); color: var(--hcp-text); }
+.alert__title { font-weight: var(--hcp-fw-semibold); margin-bottom: 4px; }
+
+/* ---- Sliders ------------------------------------------------------------- */
+.slider { margin-bottom: var(--hcp-space-5); }
+.slider__head { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.slider__ends { display: flex; justify-content: space-between; font-size: var(--hcp-fs-xs); color: var(--hcp-text-secondary); margin-top: 4px; }
+input[type="range"] { width: 100%; accent-color: var(--hcp-blue); }
+
+/* ---- Eval table ---------------------------------------------------------- */
+.eval-summary { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--hcp-space-3); margin-bottom: var(--hcp-space-5); }
+.gate { padding: var(--hcp-space-3) var(--hcp-space-4); border-radius: var(--hcp-radius-md); font-weight: var(--hcp-fw-semibold); }
+.gate--pass { background: var(--hcp-success-bg); color: var(--hcp-success); }
+.gate--fail { background: var(--hcp-danger-bg); color: var(--hcp-danger); }
+.pill-pass { color: var(--hcp-success); font-weight: var(--hcp-fw-semibold); }
+.pill-fail { color: var(--hcp-danger); font-weight: var(--hcp-fw-semibold); }
+
+/* ---- VIP list ------------------------------------------------------------ */
+.vip-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--hcp-border); }
+.vip-item:last-child { border-bottom: 0; }
+
+/* ---- Misc ---------------------------------------------------------------- */
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--hcp-blue-tint-2); border-top-color: var(--hcp-blue); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.src-tag { font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--hcp-text-muted); }
+.divider { height: 1px; background: var(--hcp-border); margin: var(--hcp-space-4) 0; }
+.link-btn { background: none; border: 0; color: var(--hcp-blue); font-weight: var(--hcp-fw-semibold); cursor: pointer; padding: 0; }
