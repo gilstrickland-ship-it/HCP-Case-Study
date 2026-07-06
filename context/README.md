@@ -1,8 +1,9 @@
 # Context
 
 Supporting material that informed the case study but is **not** itself a graded
-deliverable. Kept separate from the numbered case-study docs (`00`–`06`) and the
-problem/competitive research in `02-research/`.
+deliverable. Kept separate from the graded deliverables, which live in
+`Case Study Artifacts/` (the numbered docs `00`–`06` and the problem/competitive
+research in `02-research/`).
 
 - **`hcp-research/`** — background on Housecall Pro as a company and platform
   (funding, payments/fintech stack, AI Team, positioning). Deep-research pass with
