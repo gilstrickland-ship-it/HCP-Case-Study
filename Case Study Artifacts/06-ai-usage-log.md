@@ -45,12 +45,16 @@ not passed off as extracted.)*
 
 ## Deliberately done WITHOUT AI — and why
 
-**The guardrail gate is hand-written deterministic code, not an LLM call.** Every hard
-stop — the already-paid/dispute halt, quiet hours (customer-local), the Loop-me-in
-threshold, the per-segment autonomy gate, and the VIP legal-language block — lives in
-[`lib/guardrails.ts`](../prototype/lib/guardrails.ts) as pure functions the model
-cannot override. This was a deliberate refusal to delegate: the cardinal-failure P0
-gate must be *guaranteed*, and "we asked the model nicely" is not a guarantee. The LLM
-is scoped to the two things only it can do well — inferring *why* an invoice is unpaid
-from unstructured context, and composing in the Pro's voice. Judgment about *what to
-trust the model with* was the human call.
+**The guardrails were specified by hand, and every hard stop runs as deterministic
+code rather than an LLM call — a design decision I made deliberately, then had AI
+implement.** I decided *which* guardrails had to exist and where their lines fell: the
+already-paid/dispute halt, quiet hours (customer-local), the Loop-me-in threshold, the
+per-segment autonomy gate, and the VIP legal-language block. I also decided the
+architecture — that these must live in [`lib/guardrails.ts`](../prototype/lib/guardrails.ts)
+as pure functions the model cannot override, not as instructions in a prompt. AI wrote
+the code to that spec. This was a deliberate refusal to delegate the *judgment*: the
+cardinal-failure P0 gate must be *guaranteed*, and "we asked the model nicely" is not a
+guarantee. For the same reason, I scoped the LLM to the two things only it can do well —
+inferring *why* an invoice is unpaid from unstructured context, and composing in the
+Pro's voice. Deciding *what to trust the model with, and what to lock down in code* was
+the human call.
