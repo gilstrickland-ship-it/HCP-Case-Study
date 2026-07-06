@@ -2,9 +2,9 @@
 
 Non-negotiable principles for the Housecall Pro (HCP) case-study prototype. These
 supersede convenience and speed. Derived from
-[`01-problem-framing.md`](../../Case%20Study%20Artifacts/01-problem-framing.md),
-[`03-prd.md`](../../Case%20Study%20Artifacts/03-prd.md), and
-[`05-eval-spec.md`](../../Case%20Study%20Artifacts/05-eval-spec.md).
+[`01-problem-framing.md`](../../../../Case%20Study%20Artifacts/01-problem-framing.md),
+[`03-prd.md`](../../../../Case%20Study%20Artifacts/03-prd.md), and
+[`05-eval-spec.md`](../../../../Case%20Study%20Artifacts/05-eval-spec.md).
 
 ## Core Principles
 

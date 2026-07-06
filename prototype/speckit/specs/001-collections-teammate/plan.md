@@ -1,8 +1,8 @@
 # Implementation Plan: AI Collections Teammate
 
 **Branch**: `feat/prototype` | **Date**: 2026-07-06 | **Spec**: [spec.md](spec.md)
-**Input**: [spec.md](spec.md), [PRD](../../Case%20Study%20Artifacts/03-prd.md),
-[eval spec](../../Case%20Study%20Artifacts/05-eval-spec.md),
+**Input**: [spec.md](spec.md), [PRD](../../../../Case%20Study%20Artifacts/03-prd.md),
+[eval spec](../../../../Case%20Study%20Artifacts/05-eval-spec.md),
 [constitution](../../.specify/memory/constitution.md)
 
 ## Summary

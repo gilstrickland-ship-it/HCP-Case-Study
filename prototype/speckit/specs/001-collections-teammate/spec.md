@@ -5,17 +5,17 @@
 **Status**: Approved
 **Input**: Build a working, demoable prototype of the AI Collections Teammate for the
 Housecall Pro FinTech case study, per
-[`03-prd.md`](../../Case%20Study%20Artifacts/03-prd.md) and
-[`05-eval-spec.md`](../../Case%20Study%20Artifacts/05-eval-spec.md).
+[`03-prd.md`](../../../../Case%20Study%20Artifacts/03-prd.md) and
+[`05-eval-spec.md`](../../../../Case%20Study%20Artifacts/05-eval-spec.md).
 
 Acronyms at first use: AR = accounts receivable; DSO = days sales outstanding; VIP =
 a customer flagged for extra care; LLM = large language model; HCP = Housecall Pro;
 P0 = most-severe error class.
 
 This spec references — and does not re-derive — the existing
-[problem framing](../../Case%20Study%20Artifacts/01-problem-framing.md),
-[PRD](../../Case%20Study%20Artifacts/03-prd.md), and
-[eval spec](../../Case%20Study%20Artifacts/05-eval-spec.md).
+[problem framing](../../../../Case%20Study%20Artifacts/01-problem-framing.md),
+[PRD](../../../../Case%20Study%20Artifacts/03-prd.md), and
+[eval spec](../../../../Case%20Study%20Artifacts/05-eval-spec.md).
 
 ## User Scenarios & Testing *(mandatory)*
 

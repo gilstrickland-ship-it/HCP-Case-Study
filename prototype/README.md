@@ -6,7 +6,7 @@ right follow-up in the Pro's voice, triages replies, and escalates to the Pro wh
 judgment is needed — **never as an autopilot**.
 
 Built for the HCP FinTech case study. Spec-driven (see
-[`specs/001-collections-teammate/`](../specs/001-collections-teammate/)), grounded in
+[`specs/001-collections-teammate/`](speckit/specs/001-collections-teammate/)), grounded in
 the [PRD](../Case%20Study%20Artifacts/03-prd.md) and
 [eval spec](../Case%20Study%20Artifacts/05-eval-spec.md).
 

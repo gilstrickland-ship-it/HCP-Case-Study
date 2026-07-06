@@ -10,7 +10,7 @@ PRD = product requirements document.
 | Tool | Used for |
 |---|---|
 | **Claude (Anthropic), via Claude Code** | Research synthesis, problem framing, PRD and eval-spec authoring, and building the prototype (spec → code) through the Spec Kit workflow. |
-| **Spec Kit (`specify`)** | Process spine: constitution, spec, plan, tasks, and design docs in [`specs/001-collections-teammate/`](../specs/001-collections-teammate/) — so the build is reproducible/extensible, not ad hoc. |
+| **Spec Kit (`specify`)** | Process spine: constitution, spec, plan, tasks, and design docs in [`specs/001-collections-teammate/`](../prototype/speckit/specs/001-collections-teammate/) — so the build is reproducible/extensible, not ad hoc. |
 | **Claude API (`@anthropic-ai/sdk`)** | *Inside the prototype at runtime*: reason-classification (Haiku) and message composition + reply triage (Sonnet). |
 | **HCP design-system extraction** | Tokens/colors/type measured from the live logged-in HCP app to make the prototype read as native ([`context/design-system/`](../context/design-system/)). |
 
