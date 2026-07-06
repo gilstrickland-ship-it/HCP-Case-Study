@@ -77,7 +77,7 @@ export default function Dashboard() {
           <div className="tile__delta tile__delta--good">{fmtMoney(toughDollars)} from customers who don&apos;t usually pay</div>
         </div>
         <div className="tile">
-          <div className="tile__label">DSO vs. your baseline</div>
+          <div className="tile__label">Days Sales Outstanding</div>
           <div className="tile__value">{DSO_SNAPSHOT.current}d</div>
           <div className="tile__delta tile__delta--good">▼ {DSO_SNAPSHOT.baseline - DSO_SNAPSHOT.current} days from {DSO_SNAPSHOT.baseline}d</div>
         </div>
