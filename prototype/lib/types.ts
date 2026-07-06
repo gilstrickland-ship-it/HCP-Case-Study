@@ -78,6 +78,7 @@ export interface ProSettings {
   loopMeInThreshold: number; // dollars
   baselineDso: number; // the Pro's own average
   vipIds: string[];
+  excludedVipIds: string[]; // auto-VIPs the Pro has explicitly removed
 }
 
 // Assembled context the agent reads before acting (the 5 buckets).

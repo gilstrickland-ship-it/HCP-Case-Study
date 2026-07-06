@@ -48,9 +48,34 @@ export default function SettingsForm({
     setSaved(true);
   }
 
-  const vipCustomers = customers.filter(
-    (c) => c.autoVip || s.vipIds.includes(c.id),
-  );
+  const excludedVipIds = s.excludedVipIds ?? [];
+  const isVip = (c: CustomerLite) =>
+    s.vipIds.includes(c.id) || (c.autoVip && !excludedVipIds.includes(c.id));
+  const vipCustomers = customers.filter(isVip);
+
+  function removeVip(c: CustomerLite) {
+    if (c.autoVip) {
+      // Auto-VIPs come from relationship signals, so we remember the removal
+      // rather than deleting a customer flag we don't own.
+      patch({
+        vipIds: s.vipIds.filter((x) => x !== c.id),
+        excludedVipIds: [...excludedVipIds, c.id],
+      });
+    } else {
+      patch({ vipIds: s.vipIds.filter((x) => x !== c.id) });
+    }
+  }
+
+  function addVip(id: string) {
+    const c = customers.find((x) => x.id === id);
+    if (!c) return;
+    // Re-adding an auto-VIP just clears its exclusion; otherwise add manually.
+    if (c.autoVip) {
+      patch({ excludedVipIds: excludedVipIds.filter((x) => x !== id) });
+    } else if (!s.vipIds.includes(id)) {
+      patch({ vipIds: [...s.vipIds, id] });
+    }
+  }
 
   return (
     <div>
@@ -146,9 +171,7 @@ export default function SettingsForm({
               {vipCustomers.map((c) => (
                 <div key={c.id} className="vip-item">
                   <span>★ {c.name} {c.autoVip ? <span className="muted small">(auto)</span> : null}</span>
-                  {!c.autoVip && (
-                    <button className="link-btn small" onClick={() => patch({ vipIds: s.vipIds.filter((x) => x !== c.id) })}>remove</button>
-                  )}
+                  <button className="link-btn small" onClick={() => removeVip(c)}>remove</button>
                 </div>
               ))}
               {vipCustomers.length === 0 && <p className="muted small">No VIPs yet.</p>}
@@ -157,14 +180,14 @@ export default function SettingsForm({
               <select className="reply-input" value={newVip} onChange={(e) => setNewVip(e.target.value)}>
                 <option value="">Add a customer…</option>
                 {customers
-                  .filter((c) => !c.autoVip && !s.vipIds.includes(c.id))
+                  .filter((c) => !isVip(c))
                   .map((c) => (
-                    <option key={c.id} value={c.id}>{c.name}</option>
+                    <option key={c.id} value={c.id}>{c.name}{c.autoVip ? " (auto)" : ""}</option>
                   ))}
               </select>
               <button
                 className="hcp-btn hcp-btn--outline"
-                onClick={() => { if (newVip) { patch({ vipIds: [...s.vipIds, newVip] }); setNewVip(""); } }}
+                onClick={() => { if (newVip) { addVip(newVip); setNewVip(""); } }}
               >
                 add
               </button>
