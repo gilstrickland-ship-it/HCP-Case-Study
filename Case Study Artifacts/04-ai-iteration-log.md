@@ -6,7 +6,7 @@ outstanding; VIP = a customer flagged for extra care; P0 = most-severe error cla
 
 This log covers the *reasoning* iterations. The build itself is in
 [`prototype/`](../prototype/); the process spine is the Spec Kit workflow in
-[`specs/001-collections-teammate/`](../specs/001-collections-teammate/).
+[`specs/001-collections-teammate/`](../prototype/speckit/specs/001-collections-teammate/).
 
 ## 1. Idea divergence → convergence
 
@@ -30,7 +30,7 @@ remedy and tone. This reframed the product from "send better messages" to "class
 Early framing treated the agent as a smart message generator. Iterating on the
 failure modes flipped the design: the scariest outcome ("5 requests after they paid")
 is not a *writing* problem, it's a *control* problem. That produced the load-bearing
-decision recorded in the [constitution](../.specify/memory/constitution.md):
+decision recorded in the [constitution](../prototype/speckit/.specify/memory/constitution.md):
 **guardrails live in code, not the prompt.** The model classifies and composes; a
 deterministic gate decides whether anything may send. Without this, the eval's P0 = 0
 gate would be a wish.
