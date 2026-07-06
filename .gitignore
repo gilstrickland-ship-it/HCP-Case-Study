@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# gstack session artifacts
+.gstack/
+
+# Claude session config
+.claude/
