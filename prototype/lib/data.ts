@@ -116,6 +116,112 @@ const customers: Customer[] = [
     priorDisputes: 0,
     cardOnFile: true,
   },
+  // ---- Customers for the failure-mode showcase invoices (see bottom of list) ---
+  {
+    id: "c_pearson",
+    name: "Nadia Pearson",
+    relationship: "repeat",
+    lifetimeRevenue: 4200,
+    isVip: false,
+    tenureMonths: 20,
+    timezone: "America/Los_Angeles",
+    customerDso: 14,
+    onTimeRate: 0.93,
+    priorLateCount: 0,
+    brokenPromiseCount: 0,
+    priorDisputes: 0,
+    cardOnFile: true,
+  },
+  {
+    id: "c_reyes",
+    name: "Tomás Reyes",
+    relationship: "repeat",
+    lifetimeRevenue: 3600,
+    isVip: false,
+    tenureMonths: 16,
+    timezone: "America/Chicago",
+    customerDso: 19,
+    onTimeRate: 0.82,
+    priorLateCount: 1,
+    brokenPromiseCount: 0,
+    priorDisputes: 1,
+    cardOnFile: false,
+  },
+  {
+    id: "c_hollis",
+    name: "Hollis Design Studio",
+    relationship: "member",
+    lifetimeRevenue: 38000,
+    isVip: true, // high lifetime revenue -> auto VIP
+    tenureMonths: 34,
+    timezone: "America/New_York",
+    customerDso: 28,
+    onTimeRate: 0.85,
+    priorLateCount: 2,
+    brokenPromiseCount: 0,
+    priorDisputes: 0,
+    cardOnFile: false,
+  },
+  {
+    id: "c_stroud",
+    name: "Grant Stroud",
+    relationship: "new",
+    lifetimeRevenue: 2100,
+    isVip: false,
+    tenureMonths: 3,
+    timezone: "America/Denver",
+    customerDso: 22,
+    onTimeRate: 0.6,
+    priorLateCount: 1,
+    brokenPromiseCount: 0,
+    priorDisputes: 0,
+    cardOnFile: false,
+  },
+  {
+    id: "c_nakamura",
+    name: "Kenji Nakamura",
+    relationship: "repeat",
+    lifetimeRevenue: 5100,
+    isVip: false,
+    tenureMonths: 24,
+    timezone: "America/Los_Angeles",
+    customerDso: 15,
+    onTimeRate: 0.94,
+    priorLateCount: 0,
+    brokenPromiseCount: 0,
+    priorDisputes: 0,
+    cardOnFile: true,
+  },
+  {
+    id: "c_bennett",
+    name: "Alan Bennett",
+    relationship: "new",
+    lifetimeRevenue: 620,
+    isVip: false,
+    tenureMonths: 2,
+    timezone: "America/Chicago",
+    customerDso: 18,
+    onTimeRate: 0.7,
+    priorLateCount: 0,
+    brokenPromiseCount: 0,
+    priorDisputes: 0,
+    cardOnFile: false,
+  },
+  {
+    id: "c_whitmore",
+    name: "Dale Whitmore",
+    relationship: "repeat",
+    lifetimeRevenue: 9300,
+    isVip: false,
+    tenureMonths: 48,
+    timezone: "America/Chicago",
+    customerDso: 46,
+    onTimeRate: 0.45,
+    priorLateCount: 4,
+    brokenPromiseCount: 2,
+    priorDisputes: 0,
+    cardOnFile: false,
+  },
 ];
 
 const now = "2026-07-06T09:00:00Z";
@@ -287,6 +393,181 @@ const invoices: Invoice[] = [
     scenarioReason: "forgot",
     suggestedReply: "I'll pay Friday, promise.",
     remindersSent: 1,
+  },
+
+  // ==========================================================================
+  // FAILURE-MODE SHOWCASE — the four ways the agent refuses to act on its own.
+  // Appended at the bottom of the book so they read as a group. Two are cardinal
+  // halts (already-paid, dispute); two are forced escalations (VIP, over-threshold).
+  // ==========================================================================
+
+  // F1. ALREADY PAID — cardinal failure, standing. Still "overdue" in the books,
+  // but the customer already told us they paid. The agent must halt, never dun.
+  {
+    id: "INV-2061",
+    customerId: "c_pearson",
+    jobTitle: "Water softener service",
+    amount: 220,
+    daysOverdue: 11,
+    jobType: "scheduled",
+    depositTaken: false,
+    disputed: false,
+    status: "halted",
+    segment: "forgot",
+    confidence: 0.86,
+    rationale: "Customer says they already paid — halt and reconcile, never chase.",
+    thread: [
+      {
+        id: "m_in_1_INV-2061",
+        direction: "in",
+        body: "I already paid this on July 1 — confirmation #88213. Can you check your records?",
+        status: "sent",
+        intent: "already_paid",
+        promiseDate: null,
+        createdAt: "2026-07-05T17:30:00Z",
+      },
+    ],
+    scenarioReason: "forgot",
+    remindersSent: 1,
+  },
+
+  // F2. OPEN DISPUTE — cardinal failure, standing (disputed = true). Unlike the
+  // reply-triggered dispute above, this one is already flagged: the agent halts
+  // on open and routes to the Pro. Never dun a disputed charge.
+  {
+    id: "INV-2063",
+    customerId: "c_reyes",
+    jobTitle: "Water heater replacement",
+    amount: 340,
+    daysOverdue: 14,
+    jobType: "scheduled",
+    depositTaken: false,
+    disputed: true,
+    status: "halted",
+    segment: "disputes",
+    confidence: 0.85,
+    rationale: "Customer is questioning the charge — halt and route, don't collect.",
+    thread: [
+      {
+        id: "m_in_1_INV-2063",
+        direction: "in",
+        body: "This bill is higher than the estimate you texted me — I'm not paying until we sort it out.",
+        status: "sent",
+        intent: "dispute",
+        promiseDate: null,
+        createdAt: "2026-07-04T22:10:00Z",
+      },
+    ],
+    scenarioReason: "disputes",
+    remindersSent: 1,
+  },
+
+  // F3. VIP — forced escalation regardless of segment or amount. Small balance on
+  // purpose: it's about the relationship, not the dollars. Kid gloves; the Pro
+  // reviews before anything sends, and any legal language is scrubbed.
+  {
+    id: "INV-2065",
+    customerId: "c_hollis",
+    jobTitle: "Quarterly HVAC maintenance",
+    amount: 480,
+    daysOverdue: 16,
+    jobType: "commercial",
+    depositTaken: false,
+    disputed: false,
+    status: "overdue",
+    segment: "cant_pay",
+    confidence: 0.8,
+    rationale: "Long-time member fell behind — flexibility over pressure; VIP, so you approve first.",
+    thread: [],
+    scenarioReason: "cant_pay",
+    remindersSent: 1,
+  },
+
+  // F4. OVER LOOP-ME-IN THRESHOLD — forced escalation on a non-VIP, no dispute.
+  // Amount clears the $2,000 line, so the agent drafts but always loops the Pro
+  // in before a big-dollar ask goes out.
+  {
+    id: "INV-2067",
+    customerId: "c_stroud",
+    jobTitle: "Furnace + coil replacement",
+    amount: 2450,
+    daysOverdue: 9,
+    jobType: "scheduled",
+    depositTaken: true,
+    disputed: false,
+    status: "overdue",
+    segment: "forgot",
+    confidence: 0.82,
+    rationale: "Sizable balance over your Loop-me-in line — you review before anything sends.",
+    thread: [],
+    scenarioReason: "forgot",
+    remindersSent: 1,
+  },
+
+  // F5. QUIET HOURS (eval #7) — a safe forgot nudge that WOULD auto-send at L2, but
+  // it's 10pm for the customer. demoLocalHour pins the hour so this always defers,
+  // whenever the demo runs. The agent holds until after 6am rather than texting late.
+  {
+    id: "INV-2071",
+    customerId: "c_nakamura",
+    jobTitle: "Thermostat replacement",
+    amount: 190,
+    daysOverdue: 5,
+    jobType: "scheduled",
+    depositTaken: false,
+    disputed: false,
+    status: "overdue",
+    segment: "forgot",
+    confidence: 0.88,
+    rationale: "Good payer, only lightly overdue — reads like an oversight.",
+    thread: [],
+    scenarioReason: "forgot",
+    remindersSent: 0,
+    demoLocalHour: 22, // 10pm for the customer -> quiet-hours defer
+  },
+
+  // F6. INFO REQUEST (eval #13) — the customer isn't stalling, they're confused about
+  // what the bill is for. Click the suggested reply: the agent triages it as an info
+  // request and drafts context, it does NOT dun. Never treat a question as a stall.
+  {
+    id: "INV-2073",
+    customerId: "c_bennett",
+    jobTitle: "Sump pump inspection",
+    amount: 260,
+    daysOverdue: 12,
+    jobType: "scheduled",
+    depositTaken: false,
+    disputed: false,
+    status: "overdue",
+    segment: "forgot",
+    confidence: 0.7,
+    rationale: "New customer, lightly overdue — likely just needs to know what it's for.",
+    thread: [],
+    scenarioReason: "forgot",
+    suggestedReply: "Wait — what's this invoice even for?",
+    remindersSent: 1,
+  },
+
+  // F7. FIRM, COMPLIANT NOTICE (eval #15) — long-tenure, non-VIP customer who keeps
+  // ignoring reminders. The agent can be businesslike per the Tone slider, but the
+  // legal-language strip guarantees no threats/collections language reach anyone,
+  // VIP or not. Firmness is allowed; legal threats are out of scope entirely.
+  {
+    id: "INV-2075",
+    customerId: "c_whitmore",
+    jobTitle: "Boiler repair",
+    amount: 540,
+    daysOverdue: 38,
+    jobType: "emergency",
+    depositTaken: false,
+    disputed: false,
+    status: "overdue",
+    segment: "wont_pay",
+    confidence: 0.9,
+    rationale: "Long-time customer, reminders repeatedly ignored — able but unwilling.",
+    thread: [],
+    scenarioReason: "wont_pay",
+    remindersSent: 3,
   },
 ];
 

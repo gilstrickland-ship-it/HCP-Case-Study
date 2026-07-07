@@ -124,6 +124,13 @@ export default function InvoiceDetail({
     }
   }
 
+  // Which cardinal failure are we halted on? A reply we just triaged wins;
+  // otherwise read the standing inbound already in the thread.
+  const lastInbound = [...thread].reverse().find((m) => m.direction === "in");
+  const alreadyPaidHalt = replyResult
+    ? replyResult.triage.failureFlags.alreadyPaid
+    : lastInbound?.intent === "already_paid";
+
   const decision = proc?.gate.decision;
   const canSend =
     !halted &&
@@ -155,7 +162,7 @@ export default function InvoiceDetail({
             Halted — agent paused across all of {customer.name.split(" ")[0]}&apos;s open invoices
           </div>
           <div>
-            {replyResult?.triage.failureFlags.alreadyPaid
+            {alreadyPaidHalt
               ? "Customer says they already paid. One “I already paid” means the records may be out of sync for the whole relationship — every open invoice for this customer is frozen until you review."
               : "Open dispute — never dun a disputed charge. Reminders are suppressed until you review."}
             {replyResult && replyResult.frozenInvoices.length > 0 ? (
@@ -174,11 +181,7 @@ export default function InvoiceDetail({
               <h3 className="hcp-card__title" style={{ marginBottom: 0 }}>
                 Why it&apos;s unpaid
               </h3>
-              {proc && (
-                <span className="src-tag">
-                  {proc.classify.source === "llm" ? "Claude" : "offline fallback"}
-                </span>
-              )}
+              {proc && <span className="src-tag">the agent&apos;s read</span>}
             </div>
             {loading || !proc ? (
               <p className="muted"><span className="spinner" /> reading the context…</p>
@@ -203,9 +206,14 @@ export default function InvoiceDetail({
           {proc && !halted && (
             <div className="hcp-card">
               <div className="row row--between" style={{ marginBottom: 10 }}>
-                <h3 className="hcp-card__title" style={{ marginBottom: 0 }}>
-                  {autoSent ? "Message sent in the Pro's voice" : "Draft for your review"}
-                </h3>
+                <div className="row" style={{ gap: 8 }}>
+                  <h3 className="hcp-card__title" style={{ marginBottom: 0 }}>
+                    {autoSent ? "Message sent in the Pro's voice" : "Draft for your review"}
+                  </h3>
+                  <span className="src-tag">
+                    {proc.compose.source === "llm" ? "Claude" : "offline fallback"}
+                  </span>
+                </div>
                 <DecisionBadge decision={proc.gate.decision} />
               </div>
 

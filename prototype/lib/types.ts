@@ -68,6 +68,9 @@ export interface Invoice {
   scenarioReason?: Segment;
   suggestedReply?: string;
   remindersSent?: number;
+  // demo scaffolding: pin the customer-local hour so a quiet-hours case is
+  // deterministic regardless of when the demo is run (overrides the tz clock).
+  demoLocalHour?: number;
 }
 
 export interface ProSettings {

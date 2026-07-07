@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getInvoices, getCustomer, getSettings, PRO } from "../../lib/data";
+import { effectiveSegmentOf } from "../../lib/agent";
 import { priorityScore, fmtMoney, relativeDso } from "../../lib/weighting";
 import { StatusBadge, SegmentChip } from "../../components/ui";
 
@@ -13,6 +14,9 @@ export default function InvoicesPage() {
       return {
         inv,
         customer,
+        // Same derivation the detail page uses, off the same stored read — so the
+        // chip here can never disagree with the chip there.
+        effectiveSegment: effectiveSegmentOf(inv.segment, inv.confidence),
         score: priorityScore(inv, customer, settings),
         rel: relativeDso(customer, settings),
       };
@@ -70,7 +74,7 @@ export default function InvoicesPage() {
                 <td>
                   {r.inv.rationale ? (
                     <div className="reason-cell">
-                      <SegmentChip segment={r.inv.segment} />
+                      <SegmentChip segment={r.effectiveSegment} />
                       <span className="reason-cell__why muted small">
                         {r.inv.rationale}
                       </span>
