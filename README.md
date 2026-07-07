@@ -9,22 +9,28 @@ brief on the FinTech team: an AI teammate that helps home-service Pros get paid.
 
 **Problem framing.** The pain point: home-service Pros are owed money on overdue
 invoices but hate chasing it — it's awkward, time-consuming, and easy to drop.
-*Good* looks like more invoices paid, sooner, without the Pro doing the nagging.
+
+*Good* looks like more invoices paid, sooner, without the Pro doing the nagging. All while
+retaining the relationship with the customer.
+
 *Failure* looks like nagging a customer who already paid, or pushing so hard the Pro
 loses the relationship — so the prototype is built to prevent exactly those.
 
-**Solution design.** The AI reads each overdue invoice's history, figures out *why*
-it's unpaid, and drafts the right follow-up. It does the reading, diagnosing, and
+**Solution design.** The AI reads each overdue invoice, relationship history, invoice history, 
+figures out *why* it's unpaid, and drafts the right follow-up. It does the reading, diagnosing, and
 drafting **autonomously**; it **hands back to the Pro** anything requiring judgment —
-approving sends, disputes, "I already paid" replies, and VIP customers. *Non-AI
-alternative considered:* the standard fixed reminder schedule (send at 7/14/30 days).
+approving sends, disputes, "I already paid" replies, and VIP customers. 
+
+*Non-AI alternative considered:* the standard fixed reminder schedule (send at 7/14/30 days) with 
+expanded templates.
 It's cheaper, but it treats every unpaid invoice the same and can't tell a forgetful
-customer from an angry one — the diagnosis is the whole value, and that needs AI.
+customer from an angry one — the dynamic reasoning diagnosis is the whole value, and that needs AI.
 
 **Trust and failure.** When the system is **wrong or unsure, it stops and asks** rather
 than guessing. If a customer replies *"I already paid,"* it halts and freezes all their
-invoices until the Pro looks — no dunning a paid customer. **Trust builds gradually:**
-the Pro starts by approving every message; as the AI proves itself per customer
+invoices until the Pro looks — no dunning a paid customer. 
+**Trust builds gradually:**
+the Pro starts by approving every message; as the AI proves itself per late reason
 segment, it earns more autonomy — always visible, always reversible with one slider.
 
 **Measurement.** The outcome metric that matters is **weighted recovery** — hard
@@ -34,6 +40,7 @@ set covering every failure mode, ready for a teammate or PM to run against the a
 **zero critical failures (a wrong send that breaks trust), or it doesn't ship.**
 
 ---
+# Deeper detail:
 
 The bet: an AI teammate that helps home-service Pros get paid. For each overdue
 invoice it reads the customer's history, figures out *why* they haven't paid, drafts
