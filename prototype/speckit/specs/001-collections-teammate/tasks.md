@@ -49,8 +49,8 @@ runnable in-app harness.
 ## Phase 5: US3 — Controls & VIP (P2)
 
 - [ ] T017 [P] [US3] `components/Slider.tsx` + `components/VipList.tsx`.
-- [ ] T018 [US3] `app/settings/page.tsx` — Persistence, Tone, Leash, Loop-me-in threshold, per-segment autonomy L0–L2, VIP list; persist to the in-memory store.
-- [ ] T019 [US3] Feed settings into `agent.ts`/`guardrails.ts` (tone/persistence in compose; threshold/VIP/leash in gate).
+- [ ] T018 [US3] `app/settings/page.tsx` — Persistence, Tone, Level, Loop-me-in threshold, per-segment autonomy L0–L2, VIP list; persist to the in-memory store.
+- [ ] T019 [US3] Feed settings into `agent.ts`/`guardrails.ts` (tone/persistence in compose; threshold/VIP/level in gate).
 
 ## Phase 6: US4 — Wins dashboard (P2)
 

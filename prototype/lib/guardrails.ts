@@ -132,14 +132,14 @@ export function gate(input: GateInput): GateResult {
   // 4. Autonomy gate (only reached if nothing above forced review).
   if (input.autonomyLevel === "L0") {
     fired.push("autonomy_off");
-    reasons.push("This segment's leash is set to Off — drafting for you, not sending.");
+    reasons.push("This segment's automation level is set to Off — drafting for you, not sending.");
     return { decision: "queue_for_review", reasons, escalated: false, guardrailsFired: fired };
   }
 
   if (input.autonomyLevel === "L1" || lowConfidence) {
     if (input.autonomyLevel === "L1") {
       fired.push("autonomy_draft_only");
-      reasons.push("Leash is Draft-only for this segment — queued for your approval.");
+      reasons.push("Automation level is Draft-only for this segment — queued for your approval.");
     }
     return { decision: "queue_for_review", reasons, escalated: false, guardrailsFired: fired };
   }

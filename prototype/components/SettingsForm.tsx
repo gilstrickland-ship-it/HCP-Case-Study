@@ -125,9 +125,9 @@ export default function SettingsForm({
         </div>
 
         <div className="col" style={{ gap: 16 }}>
-          {/* Leash per segment */}
+          {/* Level per segment */}
           <div className="hcp-card">
-            <h3 className="hcp-card__title">Leash — per segment</h3>
+            <h3 className="hcp-card__title">Automation levels</h3>
             <p className="muted small" style={{ marginTop: -6 }}>
               Autonomy is earned per segment. Disputes stay Off; the agent still
               escalates VIPs, big balances, and low-confidence reads at every level.

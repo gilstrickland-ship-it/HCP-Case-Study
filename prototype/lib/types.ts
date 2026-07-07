@@ -73,7 +73,7 @@ export interface Invoice {
 export interface ProSettings {
   persistence: number; // 0-100 gentle -> keep at it
   tone: number; // 0-100 warm -> firm
-  leashDefault: AutonomyLevel;
+  levelDefault: AutonomyLevel;
   segmentAutonomy: Record<Segment, AutonomyLevel>;
   loopMeInThreshold: number; // dollars
   baselineDso: number; // the Pro's own average

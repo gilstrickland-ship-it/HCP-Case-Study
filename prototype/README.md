@@ -35,7 +35,7 @@ fallbacks** so the demo never dead-ends.
    customer). Try `INV-2033` → **"I already paid this last week"** to see the cardinal
    failure handled: the thread halts and **every open invoice for that customer
    freezes** until the Pro reviews, with an apology draft ready.
-5. **Agent settings** (`/settings`) — the 4 dials + VIP list + per-segment leash.
+5. **Agent settings** (`/settings`) — the 4 dials + VIP list + per-segment level.
 
 ## Architecture
 

@@ -71,7 +71,7 @@ customer and routes an apology draft to the Pro.
 
 ### User Story 3 - Tune behavior with dials and protect VIPs (Priority: P2)
 
-The Pro adjusts ~4 simple sliders (Persistence, Tone, Leash, Loop-me-in threshold) and
+The Pro adjusts ~4 simple sliders (Persistence, Tone, Level, Loop-me-in threshold) and
 maintains a VIP list (auto-populated where signals exist, plus manual adds). These
 bound what the agent may do — no settings menus, no prompt-engineering.
 
@@ -101,7 +101,7 @@ weights, but depends on the core loop existing first.
 
 **Independent Test**: Open the dashboard → confirm weighted-recovery ordering, the
 review queue and recent sends reflect core-loop actions, and a segment with a strong
-track record offers an L2 leash bump the Pro can confirm.
+track record offers an L2 level bump the Pro can confirm.
 
 ### Deferred - Runnable eval harness
 
@@ -140,7 +140,7 @@ feature); the code-side guardrail layer is the live enforcement of the P0 = 0 ba
 - **FR-006**: System MUST, on an already-paid or dispute signal, halt the thread,
   suppress the invoice, and pause the agent across ALL of that customer's open
   invoices until the Pro reviews — with a ready-to-send correction draft.
-- **FR-007**: Users MUST be able to set Persistence, Tone, Leash, and Loop-me-in
+- **FR-007**: Users MUST be able to set Persistence, Tone, Level, and Loop-me-in
   threshold via sliders and manage a VIP list.
 - **FR-008**: System MUST enforce per-segment autonomy levels L0–L2, defaulting to L1
   (draft-only), and MUST always escalate on dispute / over-threshold / VIP / low
