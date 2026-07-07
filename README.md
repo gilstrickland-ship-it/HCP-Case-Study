@@ -3,7 +3,7 @@
 A product case study for **Housecall Pro (HCP)**, from **Gil Strickland**; a
 brief on the FinTech team: an AI teammate that helps home-service Pros get paid.
 
-👉 **Try it:** [[`prototype/`](https://hcp-case-study.vercel.app)] — a running Next.js app.
+👉 **Try it live:** [hcp-case-study.vercel.app](https://hcp-case-study.vercel.app) — a running Next.js app (source in [`prototype/`](prototype/)).
 
 ## How this addresses the brief
 
@@ -103,7 +103,7 @@ with* was mine to make.
 |---|---|
 | [`Case Study Artifacts/`](Case%20Study%20Artifacts/) | The written deliverables: brief, problem framing, PRD, eval spec, AI logs. |
 | [`prototype/`](prototype/) | The working app (run instructions in its README). |
-| [`specs/`](specs/) | The spec that drove the build. |
+| [`prototype/speckit/`](prototype/speckit/) | The Spec Kit spec that drove the build (constitution, spec, plan, tasks). |
 | [`context/`](context/) | Background research and the HCP design system. |
 
 *Built by Gil Strickland — AI as partner, the decisions and the responsibility mine.*
