@@ -81,7 +81,9 @@ and agree with.**
 **Few things I deliberately kept away from the AI:** 
 
 ** The safety rules**. Those are hardcoded so the model can't override them. 
-deciding *what to trust the model with* was mine to make.
+
+Deciding *what to trust the model with* was mine to make.
+
 The choice to include the customer/Pro relationship context for reasoning
 
 
