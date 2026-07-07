@@ -265,6 +265,11 @@ export default function InvoiceDetail({
                   <div key={m.id} className={`msg msg--${m.direction === "out" ? "out" : "in"}`}>
                     {m.body}
                     {m.intent ? <div className="msg__meta">intent: {m.intent}{m.promiseDate ? ` · promised ${m.promiseDate}` : ""}</div> : null}
+                    {m.direction === "out" && (
+                      <div>
+                        <button type="button" className="msg__pay-btn">Pay link</button>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -292,6 +297,9 @@ export default function InvoiceDetail({
                 </div>
                 <div className="msg msg--draft" style={{ alignSelf: "flex-start", maxWidth: "100%" }}>
                   {replyResult.triage.draft}
+                  <div>
+                    <button type="button" className="msg__pay-btn">Pay link</button>
+                  </div>
                 </div>
               </div>
             )}

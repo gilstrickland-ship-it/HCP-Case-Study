@@ -83,6 +83,9 @@ button { font-family: inherit; }
 .msg--in { align-self: flex-start; background: var(--hcp-surface-alt); color: var(--hcp-text); border-bottom-left-radius: 4px; }
 .msg--draft { align-self: flex-end; background: var(--hcp-blue-faint); color: var(--hcp-text); border: 1px dashed var(--hcp-blue-tint-2); border-bottom-right-radius: 4px; }
 .msg__meta { font-size: 10px; opacity: .8; margin-top: 4px; }
+.msg__pay-btn { display: inline-block; margin-top: 8px; padding: 4px 14px; border: 0; border-radius: 200px; font-family: var(--hcp-font-body); font-size: var(--hcp-fs-xs, 11px); font-weight: var(--hcp-fw-semibold); cursor: pointer; }
+.msg--out .msg__pay-btn { background: #fff; color: var(--hcp-blue); }
+.msg--draft .msg__pay-btn { background: var(--hcp-blue); color: #fff; }
 
 /* ---- Draft editor -------------------------------------------------------- */
 .draft-edit { width: 100%; min-height: 96px; resize: vertical; border: 1px solid var(--hcp-border); border-radius: var(--hcp-radius-sm); padding: 10px 12px; font-family: var(--hcp-font-body); font-size: var(--hcp-fs-sm); line-height: 1.45; }
