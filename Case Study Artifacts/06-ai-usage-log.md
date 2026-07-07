@@ -24,8 +24,10 @@ PRD = product requirements document.
    trust irreparably, and what control prevents it?"), which produced the
    guardrails-in-code architecture and the halt-and-freeze behavior.
 3. **Spec-to-eval loop.** Turned the failure taxonomy into 15 concrete test cases,
-   then wired them to run through the real classify/gate/compose pipeline
-   ([`prototype/app/eval`](../prototype/app/eval/page.tsx)).
+   each mapped to a seeded invoice in the running prototype (the eval spec's
+   ["In prototype" column](05-eval-spec.md) ↔ [`prototype/lib/data.ts`](../prototype/lib/data.ts)),
+   so a reviewer can open the exact invoice a case exercises and see the agent's
+   decision live.
 
 ## Where AI was wrong — and what I did
 
@@ -36,7 +38,9 @@ is a P0-adjacent miss (a missed dispute risks dunning a disputed charge). It was
 caught **because the eval harness runs the real pipeline** — case 3 went red. Fix:
 broadened the dispute detection (added "price we agreed", "quoted", "agreed on", etc.)
 and re-ran; the suite returned to 15/15 with P0 = 0 and escalation recall 100%.
-Takeaway: the eval earned its keep on the first run.
+Takeaway: the eval earned its keep on the first run. *(The in-app runnable harness
+that caught this was later cut from the prototype to keep the demo focused; the 15
+cases live on as the eval spec's seeded-invoice mapping, runnable by hand.)*
 
 *(Secondary: some invoice status-badge colors in the design system could not be
 sampled from the live app — the trial account had only one paid invoice — so they are
