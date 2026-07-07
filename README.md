@@ -43,7 +43,7 @@ set covering every failure mode, ready for a teammate or PM to run against the a
 # Deeper detail:
 
 The bet: an AI teammate that helps home-service Pros get paid. For each overdue
-invoice it reads the customer's history, figures out *why* they haven't paid, drafts
+invoice, it reads the customer's history, figures out *why* they haven't paid, drafts
 the right follow-up in the Pro's voice, and handles replies — escalating to the Pro
 whenever judgment is needed. **A teammate, not an autopilot.**
 
@@ -78,9 +78,12 @@ approved specs into code. I set direction, chose the bet, made the architecture
 decisions, and signed off on every output. **Nothing shipped that I didn't understand
 and agree with.**
 
-**One thing I deliberately kept away from the AI:** the safety rules. Those are
-hand-written so the model can't override them — deciding *what to trust the model
-with* was mine to make.
+**Few things I deliberately kept away from the AI:** 
+
+** The safety rules**. Those are hardcoded so the model can't override them. 
+deciding *what to trust the model with* was mine to make.
+The choice to include the customer/Pro relationship context for reasoning
+
 
 **Where AI got it wrong — two examples I caught and corrected:**
 
