@@ -67,7 +67,7 @@ export async function processInvoice(
 
   // 3. select play + autonomy level for the *effective* segment
   const autonomyLevel: AutonomyLevel =
-    settings.segmentAutonomy[effectiveSegment] ?? settings.leashDefault;
+    settings.segmentAutonomy[effectiveSegment] ?? settings.levelDefault;
 
   // 4. compose (skip a real ask if the invoice is already disputed — draft a pause)
   const composeResult = await compose(ctx, effectiveSegment, PRO.name);

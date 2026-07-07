@@ -19,7 +19,7 @@ cases that bar must hold against.
 
 ### II. Never an autopilot
 The Pro is always in the loop and always in control. Autonomy is earned **per
-segment**, shown with evidence, and reversible at any time via the Leash slider.
+segment**, shown with evidence, and reversible at any time via the Level slider.
 Escalation to the Pro is always forced on dispute, over-threshold amount, VIP, or
 low classification confidence — regardless of autonomy level. The default state of
 every segment is draft-only (L1).

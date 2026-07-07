@@ -294,7 +294,7 @@ const invoices: Invoice[] = [
 const settings: ProSettings = {
   persistence: 45,
   tone: 35, // leans warm/neighborly
-  leashDefault: "L1",
+  levelDefault: "L1",
   segmentAutonomy: {
     forgot: "L2", // earned auto-send on the safe segment
     cant_pay: "L1",

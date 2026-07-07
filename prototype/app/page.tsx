@@ -202,7 +202,7 @@ export default function Dashboard() {
                   </div>
                   {t.offerL2 && (
                     <div className="alert alert--info small" style={{ marginTop: 8 }}>
-                      Ready to auto-send this segment? <Link href="/settings">Bump the leash to L2 →</Link>
+                      Ready to auto-send this segment? <Link href="/settings">Bump the automation level to L2 →</Link>
                     </div>
                   )}
                 </div>

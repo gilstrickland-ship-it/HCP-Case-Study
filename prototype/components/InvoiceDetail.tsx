@@ -239,7 +239,7 @@ export default function InvoiceDetail({
               )}
               {autoSent && (
                 <p className="small muted" style={{ marginTop: 12 }}>
-                  Auto-sent because this safe segment earned the L2 leash — you can dial it
+                  Auto-sent because this safe segment earned the L2 automation level — you can dial it
                   back anytime in Agent settings.
                 </p>
               )}
@@ -367,7 +367,7 @@ export default function InvoiceDetail({
 
           <div className="ctx__bucket">
             <div className="ctx__bucket-label">E · Your guardrails</div>
-            <div className="ctx__row"><span className="k">Leash (this segment)</span><span>{proc?.autonomyLevel ?? "—"}</span></div>
+            <div className="ctx__row"><span className="k">Level (this segment)</span><span>{proc?.autonomyLevel ?? "—"}</span></div>
             <div className="ctx__row"><span className="k">Loop-me-in over</span><span className="mono">{fmtMoney(settings.loopMeInThreshold)}</span></div>
             <div className="ctx__row"><span className="k">Tone</span><span>{settings.tone < 33 ? "warm" : settings.tone < 66 ? "balanced" : "firm"}</span></div>
           </div>

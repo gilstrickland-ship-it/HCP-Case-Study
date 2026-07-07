@@ -25,7 +25,7 @@ No key? The app runs on deterministic fallbacks — every screen still works.
 5. **Live iteration** — hand the reply box to the panel. They type any customer
    reply; the agent triages intent, records promises, and routes disputes/already-paid
    to the Pro. (Live Claude makes this open-ended.)
-6. **Controls** `/settings` — move Tone/Leash; show it's dials, not menus.
+6. **Controls** `/settings` — move Tone/Level; show it's dials, not menus.
 7. **Quality bar** — point to the 15-case eval set in `05-eval-spec.md`: the **P0 = 0**
    ship gate, classification ≥ 90%, escalation recall = 100%. It's the documented QA
    artifact a teammate reviews and extends — the guardrail layer is what enforces it in

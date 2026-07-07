@@ -52,7 +52,7 @@ In-memory mock data (`prototype/lib/data.ts`). No database. Types in `lib/types.
 |---|---|---|
 | persistence | 0–100 | gentle ↔ keep at it |
 | tone | 0–100 | warm ↔ firm |
-| leashDefault | `L0` \| `L1` \| `L2` | default autonomy |
+| levelDefault | `L0` \| `L1` \| `L2` | default autonomy |
 | segmentAutonomy | Record<segment, level> | per-segment override |
 | loopMeInThreshold | number | dollars |
 | baselineDso | number | the Pro's own average |
