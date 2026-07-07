@@ -73,18 +73,38 @@ whenever judgment is needed. **A teammate, not an autopilot.**
 This was **not a vibe-coding session.** It was a normal product lifecycle —
 research → problem framing → PRD → spec → build → eval — run with AI as a **partner**.
 
+```mermaid
+flowchart LR
+    A["🔎 <b>Collect</b><br/>market, problem &<br/>customer research"]
+    B["✅ <b>Confirm</b><br/>verify the research —<br/>every claim sourced"]
+    C["💡 <b>Generate</b><br/>5 structurally<br/>different ideas"]
+    D["🎯 <b>Select</b><br/>the path forward, via<br/>AI interview + scoring"]
+    E["📐 <b>Refine</b><br/>specs & solution detail:<br/>PRD + eval spec"]
+    F["🛠 <b>Enter Spec Kit</b><br/>AI-DLC build:<br/>spec → plan → tasks → prototype"]
+
+    A --> B --> C --> D --> E --> F
+
+    classDef ai fill:#eef4ff,stroke:#4f7cff,color:#1a2b6b
+    classDef human fill:#fff7e6,stroke:#e8a13a,color:#5c3d00
+    class A,C,E,F ai
+    class B,D human
+```
+
+*Blue steps are where AI did the heavy lifting; amber steps are the human judgment
+gates — verifying the research and choosing the bet — where I made the call before
+letting the process advance.*
+
 **AI moved fast; I made the calls.** AI drafted, generated options, and turned my
 approved specs into code. I set direction, chose the bet, made the architecture
 decisions, and signed off on every output. **Nothing shipped that I didn't understand
 and agree with.**
 
-**Few things I deliberately kept away from the AI:** 
+**A few things I deliberately kept away from the AI:**
 
-** The safety rules**. Those are hardcoded so the model can't override them. 
+- **The safety rules.** Those are hardcoded so the model can't override them.
+- **The choice to include the customer/Pro relationship context for reasoning.**
 
 Deciding *what to trust the model with* was mine to make.
-
-The choice to include the customer/Pro relationship context for reasoning
 
 
 **Where AI got it wrong — two examples I caught and corrected:**
