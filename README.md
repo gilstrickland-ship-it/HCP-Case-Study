@@ -101,7 +101,7 @@ flowchart TB
     class row1,row2 lane
 ```
 
-*Blue steps are where AI did the heavy lifting; amber steps are the human judgment
+*Blue steps are where AI did the heavy lifting, while I reviewed and confirmed; amber steps are the human judgment
 gates — verifying the research and choosing the bet — where I made the call before
 letting the process advance.*
 
