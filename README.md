@@ -81,12 +81,14 @@ flowchart LR
     D["🎯 <b>Select</b><br/>the path forward, via<br/>AI interview + scoring"]
     E["📐 <b>Refine</b><br/>specs & solution detail:<br/>PRD + eval spec"]
     F["🛠 <b>Enter Spec Kit</b><br/>AI-DLC build:<br/>spec → plan → tasks → prototype"]
+    G["🔁 <b>Iterate</b><br/>eval runs, design review,<br/>polish — prototype & spec<br/>kept in lockstep"]
 
-    A --> B --> C --> D --> E --> F
+    A --> B --> C --> D --> E --> F --> G
+    G -. "spec updated to match" .-> F
 
     classDef ai fill:#eef4ff,stroke:#4f7cff,color:#1a2b6b
     classDef human fill:#fff7e6,stroke:#e8a13a,color:#5c3d00
-    class A,C,E,F ai
+    class A,C,E,F,G ai
     class B,D human
 ```
 
