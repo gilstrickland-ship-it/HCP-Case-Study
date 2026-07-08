@@ -74,22 +74,31 @@ This was **not a vibe-coding session.** It was a normal product lifecycle —
 research → problem framing → PRD → spec → build → eval — run with AI as a **partner**.
 
 ```mermaid
-flowchart LR
-    A["🔎 <b>Collect</b><br/>market, problem &<br/>customer research"]
-    B["✅ <b>Confirm</b><br/>verify the research —<br/>every claim sourced"]
-    C["💡 <b>Generate</b><br/>5 structurally<br/>different ideas"]
-    D["🎯 <b>Select</b><br/>the path forward, via<br/>AI interview + scoring"]
-    E["📐 <b>Refine</b><br/>specs & solution detail:<br/>PRD + eval spec"]
-    F["🛠 <b>Enter Spec Kit</b><br/>AI-DLC build:<br/>spec → plan → tasks → prototype"]
-    G["🔁 <b>Iterate</b><br/>eval runs, design review,<br/>polish — prototype & spec<br/>kept in lockstep"]
-
-    A --> B --> C --> D --> E --> F --> G
-    G -. "spec updated to match" .-> F
+flowchart TB
+    subgraph row1 [ ]
+        direction LR
+        A["🔎 <b>Collect</b><br/>market, problem &<br/>customer research"]
+        B["✅ <b>Confirm</b><br/>verify the research —<br/>every claim sourced"]
+        C["💡 <b>Generate</b><br/>5 structurally<br/>different ideas"]
+        D["🎯 <b>Select</b><br/>the path, via AI<br/>interview + scoring"]
+        A --> B --> C --> D
+    end
+    subgraph row2 [ ]
+        direction LR
+        E["📐 <b>Refine</b><br/>specs & solution detail:<br/>PRD + eval spec"]
+        F["🛠 <b>Enter Spec Kit</b><br/>AI-DLC build: spec →<br/>plan → tasks → prototype"]
+        G["🔁 <b>Iterate</b><br/>eval runs, design review,<br/>polish — spec in lockstep"]
+        E --> F --> G
+        G -. "spec updated to match" .-> F
+    end
+    row1 --> row2
 
     classDef ai fill:#eef4ff,stroke:#4f7cff,color:#1a2b6b
     classDef human fill:#fff7e6,stroke:#e8a13a,color:#5c3d00
+    classDef lane fill:none,stroke:none
     class A,C,E,F,G ai
     class B,D human
+    class row1,row2 lane
 ```
 
 *Blue steps are where AI did the heavy lifting; amber steps are the human judgment
