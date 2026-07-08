@@ -24,7 +24,7 @@ approving sends, disputes, "I already paid" replies, and VIP customers.
 *Non-AI alternative considered:* the standard fixed reminder schedule (send at 7/14/30 days) with 
 expanded templates.
 It's cheaper, but it treats every unpaid invoice the same and can't tell a forgetful
-customer from an angry one — the dynamic reasoning diagnosis is the whole value, and that needs AI.
+customer from an angry one — the dynamic reasoning is the whole value, and that needs AI.
 
 **Trust and failure.** When the system is **wrong or unsure, it stops and asks** rather
 than guessing. If a customer replies *"I already paid,"* it halts and freezes all their
