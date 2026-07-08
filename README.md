@@ -96,8 +96,8 @@ flowchart TB
     classDef ai fill:#eef4ff,stroke:#4f7cff,color:#1a2b6b
     classDef human fill:#fff7e6,stroke:#e8a13a,color:#5c3d00
     classDef lane fill:none,stroke:none
-    class A,C,E,F,G ai
-    class B,D human
+    class A,C,E ai
+    class B,D,F,G human
     class row1,row2 lane
 ```
 
