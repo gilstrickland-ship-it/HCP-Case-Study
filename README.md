@@ -68,6 +68,52 @@ whenever judgment is needed. **A teammate, not an autopilot.**
 - **Measured the right thing:** hard collections count more than easy dollars, so the
   metric can't be gamed.
 
+## The math behind "weighted recovery"
+
+The wins dashboard doesn't count raw dollars — it counts **weighted dollars**, so the
+agent earns more credit for hard collections than for easy ones
+([`lib/weighting.ts`](prototype/lib/weighting.ts)):
+
+```
+weighted credit = amount × uplift × risk weight
+```
+
+**Uplift — "would this have been paid anyway?"** Every invoice gets an estimated
+probability that it self-resolves — the customer pays without any chasing — based on
+their on-time payment rate, how overdue the invoice is, broken promises, and open
+disputes. Uplift is the opposite of that:
+
+```
+uplift = 1 − P(pays on their own)
+```
+
+A reliable customer who just forgot has high self-resolve odds, so the agent gets
+little credit for those dollars. A customer who's ignored three reminders has low
+self-resolve odds — recovering that invoice is mostly the agent's doing, and the
+credit reflects it.
+
+**Risk weight — "how hard is this customer, for *this* Pro?"** Each customer's DSO
+(days sales outstanding — how long they typically take to pay) is compared to the
+Pro's own average:
+
+```
+risk weight = 0.5 + min(2, customer DSO ÷ Pro's baseline DSO)
+```
+
+Someone who pays twice as slowly as this Pro's typical customer gets weighted up;
+a faster-than-average payer gets weighted down.
+
+**Worked example, from the demo data:** Priya's easy $240 invoice (great payment
+history, just forgot) earns only **$190** of weighted credit. Randall's $610
+invoice (three reminders ignored, chronically slow payer) earns **$1,160**. Same
+effort spent cherry-picking sure-payers scores *worse* than cracking hard cases —
+which is what makes the metric ungameable.
+
+*A related formula ranks the daily chase list: the same score plus an age
+multiplier, so older invoices climb the queue. Age is deliberately excluded from
+the credit formula — the agent should never be rewarded for letting an invoice
+get older.*
+
 ## How I worked with AI
 
 This was **not a vibe-coding session.** It was a normal product lifecycle —
